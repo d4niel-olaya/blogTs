@@ -1,4 +1,4 @@
-export interface ICrud<TRequest, TResponse>
+export interface IController<TRequest, TResponse>
 {
     create?(req:TRequest, res:TResponse):Promise<void>
 
@@ -15,9 +15,9 @@ export interface ICrud<TRequest, TResponse>
 
 }
 
-export interface ICreate<TReturn, TData>
+export interface ICreate<TReturn>
 {
-    create(data:TData):Promise<TReturn>
+    create(data:TReturn):Promise<TReturn>
 }
 
 export interface IGetAll<TReturn>
@@ -29,9 +29,9 @@ export interface IGetOne<TReturn, TypeId>
     get(id:TypeId):Promise<TReturn>
 }
 
-export interface IUpdateOne<TReturn, TypeId,TData>
+export interface IUpdateOne<TReturn, TypeId>
 {
-    update(id:TypeId, data:TData):Promise<TReturn>
+    update(id:TypeId, data:TReturn):Promise<TReturn>
 }
 
 export interface IDeleteOne<TReturn, TypeId>

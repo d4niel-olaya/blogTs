@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client"
 
 
-export abstract class Database
+class Database
 {
     private _orm:PrismaClient;
 
@@ -17,3 +17,6 @@ export abstract class Database
         this.orm.$disconnect();
     }
 }
+
+const prisma = new Database().orm;
+export default prisma;
