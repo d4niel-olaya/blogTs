@@ -13,6 +13,8 @@ app.get('/', (req, res) => {
     res.render('index');
 })
 
+app.get('/posts')
+
 
 
 app.listen(3000)
