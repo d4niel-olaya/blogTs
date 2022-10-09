@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model categorias {
+  id     Int     @id @default(autoincrement())
+  nombre String? @db.VarChar(100)
+  posts  posts[]
+}
+
+model comentarios {
+  id        Int       @id @default(autoincrement())
+  id_user   Int
+  id_post   Int
+  contenido String    @db.Text
+  fecha     DateTime? @default(now()) @db.DateTime(0)
+  usuarios  usuarios  @relation(fields: [id_user], references: [id], onDelete: Cascade, map: "comentarios_ibfk_1")
+  posts     posts     @relation(fields: [id_post], references: [id], onDelete: Cascade, map: "comentarios_ibfk_2")
+
+  @@index([id_post], map: "id_post")
+  @@index([id_user], map: "id_user")
+}
+
+model posts {
+  id          Int           @id @default(autoincrement())
+  id_user     Int
+  id_category Int
+  titulo      String        @db.VarChar(100)
+  contenido   String        @db.Text
+  fecha       DateTime?     @default(now()) @db.DateTime(0)
+  usuarios    usuarios      @relation(fields: [id_user], references: [id], onDelete: Cascade, map: "posts_ibfk_1")
+  categorias  categorias    @relation(fields: [id_category], references: [id], onDelete: Cascade, map: "posts_ibfk_2")
+  comentarios comentarios[]
+
+  @@index([id_category], map: "id_category")
+  @@index([id_user], map: "id_user")
+}
+
+model usuarios {
+  id          Int           @id @default(autoincrement())
+  nombre      String        @db.VarChar(100)
+  email       String        @db.VarChar(100)
+  password    String        @db.VarChar(100)
+  comentarios comentarios[]
+  posts       posts[]
+}
