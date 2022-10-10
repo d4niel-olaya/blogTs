@@ -9,3 +9,12 @@ html(lang="en")
     body 
     h1 hola mundo
     button(class="btn btn-primary") Press
+    for element in data
+        h2=element.titulo
+        p Escrito por #{element.usuarios.nombre}
+        p=element.contenido
+        div
+            p Comentarios 
+            for comentario in element.comentarios 
+                p=comentario.contenido
+                p Escrito por #{comentario.usuarios.nombre}

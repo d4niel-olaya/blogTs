@@ -6,7 +6,7 @@ class PostsController implements IController<Request, Response>
 {
     async getAll(req: Request, res: Response): Promise<void> {
         const posts = await postsRepository.getAll();
-        res.json(posts);
+        res.render('index', {data:posts})
     }
 }
 

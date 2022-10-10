@@ -15,9 +15,9 @@ app.set('view engine', 'pug');
 
 app.set('views',path.join(__dirname, './views'))
 
-app.get('/', (req, res) => {
-    res.render('index');
-})
+// app.get('/', (req, res) => {
+//     res.render('index');
+// })
 
 app.use(postsRouter);
 
