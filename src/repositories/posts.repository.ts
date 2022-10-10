@@ -10,14 +10,19 @@ class PostsRepository implements IPostsRepository<posts>
         const posts:any = await prisma.posts.findMany({
             include:
             {
-                comentarios:true,
+                usuarios:true,
+                comentarios:{
+                    include:{
+                        usuarios:true
+                    }
+                },
                 categorias:true
             }
         });
 
         return posts;
     }
-    
+
     async get(id: number): Promise<posts> {
         const post:any = await prisma.posts.findUnique({
             where:

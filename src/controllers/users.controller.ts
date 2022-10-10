@@ -8,3 +8,5 @@ class UsuariosController implements IController<Request, Response>{
         res.sendStatus(201);
     }
 }
+
+export default new UsuariosController();
