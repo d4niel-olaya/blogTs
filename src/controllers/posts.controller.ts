@@ -8,6 +8,14 @@ class PostsController implements IController<Request, Response>
         const posts = await postsRepository.getAll();
         res.render('index', {data:posts})
     }
+    async create(req: Request, res: Response): Promise<void> {
+        const data:any = {"id_user":parseInt(req.body.id_user),
+                     "id_category":parseInt(req.body.id_category),
+                     "titulo":req.body.titulo,
+                     "contenido":req.body.contenido};
+        const post = await postsRepository.create(data);
+        res.sendStatus(201);
+    }
 }
 
 export default new PostsController();

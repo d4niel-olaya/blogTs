@@ -7,8 +7,16 @@ html(lang="en")
         link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous")
         title Document
     body 
-    h1 hola mundo
-    button(class="btn btn-primary") Press
+    h1 Crea tu comentario
+    div(class="mb-3")
+        form(action="/posts/create" method="POST") 
+            input(type="text" name="id_user")
+            input(type="text" name="id_category")
+            label(for="" class="form-label") Titulo del comentario
+            input(type="text" class="form-control" name="titulo")
+            label(for="" class="form-label") Contenido del comentario
+            textarea(name="contenido", cols="100", rows="10" class="form-control") 
+            button(class="btn btn-primary") Crear Post
     for element in data
         h2=element.titulo
         p Escrito por #{element.usuarios.nombre}

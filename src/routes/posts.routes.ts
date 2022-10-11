@@ -7,5 +7,7 @@ router
     .route('/posts')
     .get(postsController.getAll);
 
-
+router
+    .route('/posts/create')
+    .post(postsController.create);
 export default router;
