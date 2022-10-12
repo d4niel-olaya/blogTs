@@ -13,10 +13,13 @@ class UsuariosRepository implements IUsuariosRepository<usuarios>
     }   
 
     async get(id: number): Promise<usuarios> {
-        const user:any = await prisma.usuarios.findUnique({
+        const user:any = await prisma.usuarios.findUniqueOrThrow({
             where:
             {
                 id:id
+            },
+            include:{
+                posts:true
             }
         });
         return user;

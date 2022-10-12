@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser';
 import { PrismaClient } from '@prisma/client';
 import postsRouter from '../src/routes/posts.routes';
 import comentariosRouter from '../src/routes/comentarios.routes';
+import usuariosRouter from '../src/routes/usuarios.routes';
 import path from 'path';
 
 
@@ -20,13 +21,10 @@ app.set('view engine', 'pug');
 
 app.set('views',path.join(__dirname, './views'))
 
-// app.get('/', (req, res) => {
-//     res.render('index');
-// })
 
 app.use(postsRouter);
 app.use(comentariosRouter);
-
+app.use(usuariosRouter);
 app.listen(3000)
 
 console.log('server colocado');

@@ -10,4 +10,5 @@ router
 router
     .route('/posts/create')
     .post(postsController.create);
+      
 export default router;

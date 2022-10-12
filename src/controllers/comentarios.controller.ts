@@ -1,6 +1,4 @@
 import { Request, Response } from "express";
-import { ParamsDictionary } from "express-serve-static-core";
-import { ParsedQs } from "qs";
 import { IComentariosController } from "../interfaces/comentarios.interaface";
 import comentariosRepository from "../repositories/comentarios.repository";
 
