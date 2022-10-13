@@ -1,31 +1,22 @@
 import { Request, Response } from "express";
 import usersRepository from "../repositories/users.repository";
 import { IController } from "../interfaces/crud.interface";
+import {Controller} from './controller';
 
-class UsuariosController implements IController<Request, Response>{
+class UsuariosController extends Controller implements IController<Request, Response>{
+
+    constructor()
+    {
+        super();
+    }
     async store(req: Request, res: Response): Promise<void> {
-        try{
-            const user = await usersRepository.create(req.body);
-            res.sendStatus(201);
-
-        }
-        catch(e){
-            res.sendStatus(409);
-        }
+        
 
     }
     async show(req: Request, res: Response): Promise<void> {
-        // try{
-        //     const id:any = parseInt(req.params.id);
-        //     const user = await usersRepository.get(id);
-        //     res.json(user).status(200);
-        // }
-        // catch(e){
-        //     res.json({code:404, msg:e}).status(404);
-        // }
         const id:number = parseInt(req.params.id);
-        const user = await usersRepository.get(id);
-        res.status(200).json(user);
+        const result:any = await super.validateOne(id,usersRepository);
+        res.status(result.code).json(result.data);
     }
 }
 
