@@ -11,4 +11,8 @@ router
     .route('/usuarios/create')
     .post(usersController.store)
 
+router
+    .route('/usuarios/update/:id')
+    .put(usersController.update);
+
 export default router;

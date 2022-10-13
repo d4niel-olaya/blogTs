@@ -30,6 +30,15 @@ class UsuariosRepository extends Repository implements IUsuariosRepository<usuar
         });
         return user;
     }
+    async update(id: number, data: usuarios): Promise<usuarios> {
+        const user:any = await prisma.usuarios.update({
+            where:{
+                id:id
+            },
+            data:data
+        });
+        return user;
+    }
 }
 
 export default new UsuariosRepository();
