@@ -14,7 +14,7 @@ class UsuariosController extends Controller implements IController<Request, Resp
 
     }
     async show(req: Request, res: Response): Promise<void> {
-        const id:number = parseInt(req.params.id);
+        const id:any = parseInt(req.params.id);
         const result:any = await super.validateOne(id,usersRepository);
         res.status(result.code).json(result.data);
     }

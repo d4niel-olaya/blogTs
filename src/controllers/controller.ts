@@ -12,13 +12,16 @@ export class Controller
     {
         if( typeof(data) == null) throw new Error('Not found'); 
     }
-    async validateOne(id:any, repo:any) 
+    async validateOne(id:number, repo:any) 
     {
         
-        if( typeof(id) == 'number') {
+        if( isNaN(id) ) {
+            return {code: 400 , data:'Bad request'}
+        }
+        else {
             const data = await repo.get(id);
-            if(typeof(data) == null) return {code:404, data:'Not found'}
-            return {code:200, data: data}
+            if(typeof(data) != null) return {code:200, data:data}
+            return {code:200, data: 'not found'}
         }
     }
 }
