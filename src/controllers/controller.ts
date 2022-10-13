@@ -18,10 +18,8 @@ export class Controller
         if( isNaN(id) ) {
             return {code: 400 , data:'Bad request'}
         }
-        else {
-            const data = await repo.get(id);
-            if(typeof(data) != null) return {code:200, data:data}
-            return {code:200, data: 'not found'}
-        }
+        const data = await repo.get(id);
+        if( data === null ) return {code:404, data:'Not found'}
+        return {code:200, data: data}
     }
 }
