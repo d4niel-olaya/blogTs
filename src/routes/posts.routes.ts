@@ -5,10 +5,10 @@ const router:Router = Router();
 
 router
     .route('/posts')
-    .get(postsController.getAll);
+    .get(postsController.index);
 
 router
     .route('/posts/create')
-    .post(postsController.create);
+    .post(postsController.store);
       
 export default router;

@@ -6,7 +6,7 @@ import comentariosRepository from "../repositories/comentarios.repository";
 
 class ComentariosController implements IComentariosController
 {
-    async getOne(req: Request, res: Response): Promise<void> {
+    async show(req: Request, res: Response): Promise<void> {
         const id = parseInt(req.params.id)
         try{
             const comentario = await comentariosRepository.get(id);
@@ -17,7 +17,7 @@ class ComentariosController implements IComentariosController
         }
     }
 
-    async getAll(req: Request, res: Response): Promise<void> {
+    async index(req: Request, res: Response): Promise<void> {
         try{
             const comentarios = await comentariosRepository.getAll();
             res.json(comentarios).status(200);

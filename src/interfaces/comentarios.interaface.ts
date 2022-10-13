@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { ICreate, IGetOne, IGetAll, IController, IUpdateOne } from "./crud.interface";
+import {  IController , IRepository} from "./crud.interface";
 
 export interface IComentariosController extends IController<Request,Response>{}
 
 
-export interface IComentariosRepository<TModel> extends IGetAll<TModel>, IGetOne<TModel, number>{}
+export interface IComentariosRepository<TModel> extends IRepository<TModel, number>{}
 
 
 

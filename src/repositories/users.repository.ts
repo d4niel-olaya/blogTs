@@ -19,7 +19,7 @@ class UsuariosRepository extends Repository implements IUsuariosRepository<usuar
     }   
 
     async get(id: number): Promise<usuarios> {
-        const user:any = await prisma.usuarios.findUniqueOrThrow({
+        const user:any = await prisma.usuarios.findUnique({
             where:
             {
                 id:id

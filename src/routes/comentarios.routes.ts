@@ -6,10 +6,10 @@ const router :Router = Router()
 
 router
     .route('/comentarios/:id')
-    .get(comentariosController.getOne);
+    .get(comentariosController.show);
 
 router
     .route('/comentarios')
-    .get(comentariosController.getAll)
+    .get(comentariosController.index)
     
 export default router;

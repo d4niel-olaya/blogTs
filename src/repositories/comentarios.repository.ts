@@ -15,7 +15,7 @@ class ComentarioRepository<comentarios> implements IComentariosRepository<coment
     }
 
     async get(id: number): Promise<comentarios> {
-        const comentario:any = await prisma.comentarios.findUniqueOrThrow({
+        const comentario:any = await prisma.comentarios.findUnique({
             where:{
                 id:id
             }
