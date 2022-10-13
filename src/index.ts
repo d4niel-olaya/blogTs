@@ -4,6 +4,7 @@ import { PrismaClient } from '@prisma/client';
 import postsRouter from '../src/routes/posts.routes';
 import comentariosRouter from '../src/routes/comentarios.routes';
 import usuariosRouter from '../src/routes/usuarios.routes';
+import authRouter from '../src/routes/auth.routes';
 import path from 'path';
 
 
@@ -25,6 +26,7 @@ app.set('views',path.join(__dirname, './views'))
 app.use(postsRouter);
 app.use(comentariosRouter);
 app.use(usuariosRouter);
+app.use(authRouter);
 app.listen(3000)
 
 console.log('server colocado');

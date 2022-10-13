@@ -24,3 +24,5 @@ class AuthenticacionRepository implements IAuthenticacionRepository<usuarios>
         return user;
     }
 }
+
+export default new AuthenticacionRepository();
