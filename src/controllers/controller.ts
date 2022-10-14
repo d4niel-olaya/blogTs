@@ -22,4 +22,13 @@ export class Controller
         if( data === null ) return {code:404, data:'Not found'}
         return {code:200, data: data}
     }
+
+    static async verifyBody(object:object,keys:Array<String>):Promise<boolean> {
+        let count:number = 0;
+        for await(let key of Object.keys(object)){
+            if ( keys.includes(key) ) count++;
+            if (count == keys.length) return true;
+        }
+        return false;
+    }
 }

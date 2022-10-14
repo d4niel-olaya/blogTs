@@ -5,12 +5,6 @@ import prisma from "../database/database";
 class AuthenticacionRepository implements IAuthenticacionRepository<usuarios>
 {
 
-    async verifyBody(body:object):Promise<boolean>{
-        const entries = Object.keys(body);
-        if(entries.includes('email') && entries.includes('password')) return true;
-        return false;
-    }
-
     async verifyUser(email:string): Promise<usuarios> {
         const user:any = await prisma.usuarios.count({
             where:{
