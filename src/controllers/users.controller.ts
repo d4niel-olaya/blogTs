@@ -12,8 +12,14 @@ class UsuariosController extends Controller implements IController<Request, Resp
     async store(req: Request, res: Response): Promise<void> {
         try{
             const data:any = req.body;
-            const result = await usersRepository.create(data);
-            res.sendStatus(201);
+            const state = await Controller.verifyBody(data, ['nombre', 'email', 'password'])
+            if( state ){
+                const result = await usersRepository.create(data);
+                res.sendStatus(201);
+                return;
+            }
+            res.sendStatus(400);
+            return;
         }
         catch(e){
             res.sendStatus(409);
