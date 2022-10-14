@@ -12,7 +12,7 @@ class AuthenticacionController
             if( count > 0 ) {
                 const found = await autenticacionRepository.verifySession(req.body.email, req.body.password);
                 res.status(201).json(found);
-                return
+                return;
             }
             res.sendStatus(404)
             return;

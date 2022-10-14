@@ -2,6 +2,7 @@
 import { IUsuariosRepository } from "../interfaces/usuarios.interface";
 import prisma from "../database/database";
 import { usuarios } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 
 import {Repository} from './repository';
 class UsuariosRepository extends Repository implements IUsuariosRepository<usuarios>
@@ -12,9 +13,8 @@ class UsuariosRepository extends Repository implements IUsuariosRepository<usuar
 
     async create(data:usuarios):Promise<usuarios>
     {
-        const user:any = await prisma.usuarios.create({
-            data:data
-        });
+        const {nombre, email, password} = data;
+        const user:any = await prisma.$queryRaw`INSERT INTO usuarios(nombre,email,password) VALUES(${nombre},${email},aes_encrypt(${password},'xyz'))`;
         return user;
     }   
 

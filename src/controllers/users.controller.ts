@@ -22,7 +22,7 @@ class UsuariosController extends Controller implements IController<Request, Resp
             return;
         }
         catch(e){
-            res.sendStatus(409);
+            res.status(409).json(e);
         }
 
     }
