@@ -2,11 +2,11 @@ import { IPostsRepository } from "../interfaces/posts.interface";
 import prisma from "../database/database";
 import { posts } from "@prisma/client";
 
+import { Validate } from "./validate.repository";
 
-
-class PostsRepository implements IPostsRepository<posts>
+class PostsRepository implements IPostsRepository<posts ,Validate>
 {
-    async getAll(): Promise<posts> {
+    async getAll(): Promise<Validate> {
         const posts:any = await prisma.posts.findMany({
             include:
             {
@@ -23,7 +23,7 @@ class PostsRepository implements IPostsRepository<posts>
         return posts;
     }
 
-    async get(id: number): Promise<posts> {
+    async get(id: number): Promise<Validate> {
         const post:any = await prisma.posts.findUnique({
             where:
             {
@@ -33,14 +33,14 @@ class PostsRepository implements IPostsRepository<posts>
         return post;
     }
 
-    async create(data: posts): Promise<posts> {
+    async create(data: posts): Promise<Validate> {
         const post:any = await prisma.posts.create({
             data:data
         })
         return post;
     }
 
-    async update(id: number, data: posts): Promise<posts> {
+    async update(id: number, data: posts): Promise<Validate> {
         const post:any = await prisma.posts.update({
             where:{
                 id:id

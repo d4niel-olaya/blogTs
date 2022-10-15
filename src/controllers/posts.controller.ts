@@ -8,10 +8,16 @@ class PostsController implements IController<Request, Response>
     async index(req: Request, res: Response): Promise<void> {
         try{
             const posts = await postsRepository.getAll();
-            res.render('index', {data:posts})
+            res.json(posts);
         } catch(e){
             res.sendStatus(409);
         }
+    }
+
+    async show(req:Request, res:Response):Promise<void>{
+        const post = await postsRepository.get(parseInt(req.params.id));
+        console.log(post == null);
+        res.json(post)
     }
     async store(req: Request, res: Response): Promise<void> {
         try{

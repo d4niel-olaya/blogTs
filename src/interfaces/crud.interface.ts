@@ -16,16 +16,16 @@ export interface IController<TRequest, TResponse>
 }
 
 
-export interface IRepository<TReturn , TypeId>
+export interface IRepository<TReturn , TypeId, TResponse>
 {
-    create?(data:TReturn):Promise<TReturn>
+    create?(data:TReturn):Promise<TResponse>
 
-    getAll?():Promise<TReturn>
+    getAll?():Promise<TResponse>
 
-    get?(id:TypeId):Promise<TReturn>
+    get?(id:TypeId):Promise<TResponse>
 
-    update?(id:TypeId, data:TReturn):Promise<TReturn>
+    update?(id:TypeId, data:TReturn):Promise<TResponse>
 
-    delete?(id:TypeId):Promise<TReturn>
+    delete?(id:TypeId):Promise<TResponse>
 }
 

@@ -8,6 +8,9 @@ router
     .get(postsController.index);
 
 router
+    .route('/posts/:id')
+    .get(postsController.show);
+router
     .route('/posts/create')
     .post(postsController.store);
       
