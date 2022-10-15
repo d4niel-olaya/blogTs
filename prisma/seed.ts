@@ -20,8 +20,8 @@ async function main(){
       // })
         // await prisma.posts.create({
         //   data:{
-        //     id_user:faker.datatype.number({min:2, max:10}),
-        //     id_category:faker.datatype.number({min:1, max:3}),
+        //     id_user:faker.datatype.number({min:1, max:100}),
+        //     id_category:faker.datatype.number({min:1, max:20}),
         //     titulo:faker.random.word(),
         //     contenido:faker.lorem.paragraphs(5)
         //     }
@@ -29,8 +29,8 @@ async function main(){
 
         await prisma.comentarios.create({
           data:{
-            id_user:faker.datatype.number({min:1,max:20}),
-            id_post:faker.datatype.number({min:1,max:20}),
+            id_user:faker.datatype.number({min:1,max:100}),
+            id_post:faker.datatype.number({min:1,max:100}),
             contenido:faker.lorem.text()
           }
         })

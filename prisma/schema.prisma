@@ -44,7 +44,7 @@ model posts {
 model usuarios {
   id          Int           @id @default(autoincrement())
   nombre      String        @db.VarChar(100)
-  email       String        @db.VarChar(100)
+  email       String        @unique(map: "email") @db.VarChar(100)
   password    String        @db.VarChar(100)
   comentarios comentarios[]
   posts       posts[]
