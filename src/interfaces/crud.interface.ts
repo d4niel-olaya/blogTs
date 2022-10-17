@@ -18,14 +18,14 @@ export interface IController<TRequest, TResponse>
 
 export interface IRepository<TReturn , TypeId, TResponse>
 {
-    create?(data:TReturn):Promise<TResponse>
+    create?(data:TReturn):Promise<TReturn | TResponse>
 
-    getAll?():Promise<TResponse>
+    getAll?():Promise<TReturn | TResponse>
 
-    get?(id:TypeId):Promise<TResponse>
+    get?(id:TypeId):Promise<TReturn | TResponse>
 
-    update?(id:TypeId, data:TReturn):Promise<TResponse>
+    update?(id:TypeId, data:TReturn):Promise<TReturn | TResponse>
 
-    delete?(id:TypeId):Promise<TResponse>
+    delete?(id:TypeId):Promise<TReturn | Response>
 }
 

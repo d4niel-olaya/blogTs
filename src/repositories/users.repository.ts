@@ -4,27 +4,54 @@ import prisma from "../database/database";
 import { usuarios } from "@prisma/client";
 import { Validate } from "./validate.repository";
 
-import {Repository} from './repository';
-class UsuariosRepository extends Repository implements IUsuariosRepository<usuarios,Validate>
+
+/**
+ * @implements {IUsuariosRepository<usuarios, Validate>}
+ * 
+ * @extends {Validate}
+ */
+class UsuariosRepository extends Validate implements IUsuariosRepository<usuarios,Validate>
 {
-    async create(data:usuarios):Promise<Validate>
-    {
-        const {nombre, email, password} = data;
-        const user:any = await prisma.$queryRaw`INSERT INTO usuarios(nombre,email,password) VALUES(${nombre},${email},aes_encrypt(${password},'xyz'))`;
-        return user;
+    constructor() {
+        super();
+    }
+    /**
+    *@param {usuarios} data - Body request
+    *@return {Promise<Validate>}  ValidateClass response
+    */
+    async create(data:usuarios):Promise<usuarios | Validate>
+    {   
+        try{
+            const {nombre, email, password} = data;
+            const user:any = await prisma.$queryRaw`INSERT INTO usuarios(nombre,email,password) VALUES(${nombre},${email},aes_encrypt(${password},'xyz'))`;
+            return user;
+        }
+        catch(e:any){
+            const response:any = await super.Response(e);
+            return response;
+        }
     }   
 
-    async get(id: number): Promise<Validate> {
-        const user:any = await prisma.usuarios.findUnique({
-            where:
-            {
-                id:id
-            },
-            include:{
-                posts:true
-            }
-        });
-        return user;
+    async get(id: number): Promise<usuarios | Validate> {
+        try{
+            await super.ValidTypeid(id);
+            const user:any = await prisma.usuarios.findUnique({
+                where:
+                {
+                    id:id
+                },
+                include:{
+                    posts:true
+                }
+            });
+            await super.VerifyParams(user);
+            return user;
+
+        }
+        catch(e:any){
+            const response:any = await super.Response(e.message);
+            return response
+        }
     }
     async update(id: number, data: usuarios): Promise<Validate> {
         const user:any = await prisma.usuarios.update({

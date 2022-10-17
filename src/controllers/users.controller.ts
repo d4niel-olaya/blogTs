@@ -27,14 +27,10 @@ class UsuariosController extends Controller implements IController<Request, Resp
 
     }
     async show(req: Request, res: Response): Promise<void> {
-        try{
-            const id:any = parseInt(req.params.id);
-            const result:any = await super.validateOne(id,usersRepository);
-            res.status(result.code).json(result.data);
-        }
-        catch(e) {
-            res.sendStatus(409);
-        }
+
+        const id:any = parseInt(req.params.id);
+        const result:any = await usersRepository.get(id);
+        res.send(result);
     }
     async update(req: Request, res: Response): Promise<void> {
         try{

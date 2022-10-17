@@ -2,7 +2,8 @@
 
 export interface IValidate
 {
-    VerifyBody(data:object, keys:Array<string>):Promise<Boolean>;
+    VerifyBody(data:object, keys:Object): Promise<Error | void>;
+    VerifyParams(data:object):Promise<any>;
 
-    VerifyResponse(data:any):Promise<any>;
+    Response(msg:String): Object;
 }
