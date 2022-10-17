@@ -27,7 +27,7 @@ class UsuariosRepository extends Validate implements IUsuariosRepository<usuario
             return user;
         }
         catch(e:any){
-            const response:any = await super.Response(e);
+            const response:any = await super.response(e);
             return response;
         }
     }   
@@ -49,7 +49,7 @@ class UsuariosRepository extends Validate implements IUsuariosRepository<usuario
 
         }
         catch(e:any){
-            const response:any = await super.Response(e.message);
+            const response:any = await super.response(e);
             return response
         }
     }

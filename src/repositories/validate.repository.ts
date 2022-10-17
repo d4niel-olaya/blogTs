@@ -1,7 +1,7 @@
 import { IValidate } from "../interfaces/validate.interface";
+import { ResponseError } from "../models/response/response";
 
-
-export class Validate implements IValidate
+export class Validate implements IValidate<ResponseError>
 {
     /** 
     *@param {Object} data - Body Request
@@ -14,7 +14,7 @@ export class Validate implements IValidate
     async VerifyBody(data: Object, objSearch:Object): Promise<Error | void> {
         for await(let key of Object.keys(objSearch)){
             if( !data.hasOwnProperty(key) ){
-                throw new Error(`No esta incluido ${key}`);
+                throw new ResponseError(`Falta el ${key}`, 400);
             }
         }
         return;
@@ -28,7 +28,7 @@ export class Validate implements IValidate
      */
     async VerifyParams(data:object):Promise<Error | void>{
         if( data === null){
-            throw new Error('Not found');
+            throw new ResponseError('Not found', 404);
         }
         return;
     }
@@ -40,20 +40,20 @@ export class Validate implements IValidate
      * @returns {Object} JSON 
      * 
      * @example 
-     * {"msg": "Not found"}
-     * {"msg": "Debe ser un número entero"}
+     * {code:404 , msg: "Not found"}
+     * {code:400, msg: "Debe ser un número entero"}
      * 
      * 
      * 
      * 
      */
 
-    async Response(msg: String): Promise<Object> {
-        return {"msg":msg};
+    async response(msg: ResponseError): Promise<Object> {
+        return {"code":msg.code,"msg":msg.message};
     }
 
     async ValidTypeid(id:number): Promise<Error | void>{
-        if( isNaN(id) ) throw new Error('Debe ser un número entero');
+        if( isNaN(id) ) throw new ResponseError('El número debe ser entero', 400);
     }
 }
 

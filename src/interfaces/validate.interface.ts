@@ -1,9 +1,9 @@
 
 
-export interface IValidate
+export interface IValidate<TResponse>
 {
     VerifyBody(data:object, keys:Object): Promise<Error | void>;
     VerifyParams(data:object):Promise<any>;
 
-    Response(msg:String): Object;
+    response(msg:TResponse): Object;
 }

@@ -16,7 +16,6 @@ class PostsController implements IController<Request, Response>
 
     async show(req:Request, res:Response):Promise<void>{
         const post = await postsRepository.get(parseInt(req.params.id));
-        console.log(post == null);
         res.json(post)
     }
     async store(req: Request, res: Response): Promise<void> {
