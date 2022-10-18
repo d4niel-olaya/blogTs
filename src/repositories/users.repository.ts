@@ -2,15 +2,14 @@
 import { IUsuariosRepository } from "../interfaces/usuarios.interface";
 import prisma from "../database/database";
 import { usuarios } from "@prisma/client";
-import { Validate } from "./validate.repository";
-
+import { Repository } from "./repository";
 
 /**
  * @implements {IUsuariosRepository<usuarios, Validate>}
  * 
  * @extends {Validate}
  */
-class UsuariosRepository extends Validate implements IUsuariosRepository<usuarios,Validate>
+class UsuariosRepository extends Repository implements IUsuariosRepository<usuarios,Repository>
 {
     constructor() {
         super();
@@ -19,7 +18,7 @@ class UsuariosRepository extends Validate implements IUsuariosRepository<usuario
     *@param {usuarios} data - Body request
     *@return {Promise<Validate>}  ValidateClass response
     */
-    async create(data:usuarios):Promise<usuarios | Validate>
+    async create(data:usuarios):Promise<usuarios | Repository>
     {   
         try{
             const {nombre, email, password} = data;
@@ -32,7 +31,7 @@ class UsuariosRepository extends Validate implements IUsuariosRepository<usuario
         }
     }   
 
-    async get(id: number): Promise<usuarios | Validate> {
+    async get(id: number): Promise<usuarios | Repository> {
         try{
             await super.ValidTypeid(id);
             const user:any = await prisma.usuarios.findUnique({
@@ -53,7 +52,7 @@ class UsuariosRepository extends Validate implements IUsuariosRepository<usuario
             return response
         }
     }
-    async update(id: number, data: usuarios): Promise<Validate> {
+    async update(id: number, data: usuarios): Promise<Repository> {
         const user:any = await prisma.usuarios.update({
             where:{
                 id:id

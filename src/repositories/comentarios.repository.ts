@@ -1,11 +1,11 @@
 import { IComentariosRepository } from "../interfaces/comentarios.interaface";
 import { comentarios } from "@prisma/client";
 import prisma from "../database/database";
-import { Validate } from "./validate.repository";
+import { Repository } from "./repository";
 
-class ComentarioRepository<comentarios> implements IComentariosRepository<comentarios, Validate>
+class ComentarioRepository<comentarios> implements IComentariosRepository<comentarios, Repository>
 {   
-    async getAll(): Promise<Validate> {
+    async getAll(): Promise<Repository> {
         const comentarios:any = await prisma.comentarios.findMany({
             include:{
                 usuarios:true
@@ -14,7 +14,7 @@ class ComentarioRepository<comentarios> implements IComentariosRepository<coment
         return comentarios; 
     }
 
-    async get(id: number): Promise<Validate> {
+    async get(id: number): Promise<Repository> {
         const comentario:any = await prisma.comentarios.findUnique({
             where:{
                 id:id
