@@ -30,7 +30,7 @@ class UsuariosController extends Controller implements IController<Request, Resp
 
         const id:any = parseInt(req.params.id);
         const result:any = await usersRepository.get(id);
-        res.send(result);
+        res.status(result.code).json(result.msg);
     }
     async update(req: Request, res: Response): Promise<void> {
         try{

@@ -5,9 +5,9 @@ import { usuarios } from "@prisma/client";
 import { Repository } from "./repository";
 
 /**
- * @implements {IUsuariosRepository<usuarios, Validate>}
+ * @implements {IUsuariosRepository<usuarios, Repository>}
  * 
- * @extends {Validate}
+ * @extends {Repository}
  */
 class UsuariosRepository extends Repository implements IUsuariosRepository<usuarios,Repository>
 {
@@ -23,17 +23,18 @@ class UsuariosRepository extends Repository implements IUsuariosRepository<usuar
         try{
             const {nombre, email, password} = data;
             const user:any = await prisma.$queryRaw`INSERT INTO usuarios(nombre,email,password) VALUES(${nombre},${email},aes_encrypt(${password},'xyz'))`;
-            return user;
+            const response:any = await super.response(201,user);
+            return response;
         }
         catch(e:any){
-            const response:any = await super.response(e);
+            const response:any = await super.badResponse(e);
             return response;
         }
     }   
 
     async get(id: number): Promise<usuarios | Repository> {
         try{
-            await super.ValidTypeid(id);
+            await super.validTypeid(id); // Verify id 
             const user:any = await prisma.usuarios.findUnique({
                 where:
                 {
@@ -43,12 +44,13 @@ class UsuariosRepository extends Repository implements IUsuariosRepository<usuar
                     posts:true
                 }
             });
-            await super.VerifyParams(user);
-            return user;
+            await super.verifyOrmResponse(user); // Verify orm response
+            const response:any = await super.response(200,user);
+            return response;
 
         }
         catch(e:any){
-            const response:any = await super.response(e);
+            const response:any = await super.badResponse(e); // Custom response
             return response
         }
     }

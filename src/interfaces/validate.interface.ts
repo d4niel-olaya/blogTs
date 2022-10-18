@@ -2,8 +2,12 @@
 
 export interface IValidate<TResponse>
 {
-    VerifyBody(data:object, keys:Object): Promise<Error | void>;
-    VerifyParams(data:object):Promise<any>;
+    verifyBody(data:Object, keys:Object): Promise<Error | void>;
 
-    response(msg:TResponse): Object;
+    verifyOrmResponse(data:object):Promise<any>;
+
+    badResponse(msg:TResponse): Promise<Object>;
+
+    response(code:number, msg:Object): Promise<Object>;
+
 }
