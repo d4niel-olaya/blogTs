@@ -5,6 +5,7 @@ import { Repository } from "./repository";
 
 class ComentarioRepository<comentarios> implements IComentariosRepository<comentarios, Repository>
 {   
+
     async getAll(): Promise<Repository> {
         const comentarios:any = await prisma.comentarios.findMany({
             include:{

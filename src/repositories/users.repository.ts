@@ -23,18 +23,17 @@ class UsuariosRepository extends Repository implements IUsuariosRepository<usuar
         try{
             const {nombre, email, password} = data;
             const user:any = await prisma.$queryRaw`INSERT INTO usuarios(nombre,email,password) VALUES(${nombre},${email},aes_encrypt(${password},'xyz'))`;
-            const response:any = await super.response(201,user);
-            return response;
+            return user;
         }
         catch(e:any){
-            const response:any = await super.badResponse(e);
-            return response;
+            // const response:any = await super.badResponse(e);
+            // return response;
+            return e;
         }
     }   
 
     async get(id: number): Promise<usuarios | Repository> {
         try{
-            await super.validTypeid(id); // Verify id 
             const user:any = await prisma.usuarios.findUnique({
                 where:
                 {
@@ -44,14 +43,11 @@ class UsuariosRepository extends Repository implements IUsuariosRepository<usuar
                     posts:true
                 }
             });
-            await super.verifyOrmResponse(user); // Verify orm response
-            const response:any = await super.response(200,user);
-            return response;
+            return user;
 
         }
         catch(e:any){
-            const response:any = await super.badResponse(e); // Custom response
-            return response
+            return e;
         }
     }
     async update(id: number, data: usuarios): Promise<Repository> {

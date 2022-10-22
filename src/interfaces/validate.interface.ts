@@ -1,13 +1,24 @@
 
-
-export interface IValidate<TResponse>
+export interface IValidate
 {
-    verifyBody(data:Object, keys:Object): Promise<Error | void>;
+    getInstance(error:Error):Promise<any>;
 
-    verifyOrmResponse(data:object):Promise<any>;
+    typeException():Promise<Object>;
 
-    badResponse(msg:TResponse): Promise<Object>;
+    knowRequestError():Promise<Object>;
 
-    response(code:number, msg:Object): Promise<Object>;
+    unknowRequestError():Promise<Object>;
+
+    rustPanicError():Promise<Object>;
+
+    initializationError():Promise<Object>;
+
+    validationError(error:Error):Promise<Object>;
+
+    empty():Promise<Object>;
+
+    invalidTypeId():Promise<Object>;
+
+    response(): Promise<Object>;
 
 }
