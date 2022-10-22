@@ -2,14 +2,14 @@
 import { IUsuariosRepository } from "../interfaces/usuarios.interface";
 import prisma from "../database/database";
 import { usuarios } from "@prisma/client";
-import { Repository } from "./repository";
+import { ResponseModel } from '../models/response/response.model'; 
 
 /**
- * @implements {IUsuariosRepository<usuarios, Repository>}
+ * @implements {IUsuariosRepository<usuarios, ResponseError>}
  * 
- * @extends {Repository}
+ * @extends {ResponseError}
  */
-class UsuariosRepository extends Repository implements IUsuariosRepository<usuarios,Repository>
+class UsuariosRepository extends ResponseModel implements IUsuariosRepository<usuarios,ResponseModel>
 {
     constructor() {
         super();
@@ -18,7 +18,7 @@ class UsuariosRepository extends Repository implements IUsuariosRepository<usuar
     *@param {usuarios} data - Body request
     *@return {Promise<Validate>}  ValidateClass response
     */
-    async create(data:usuarios):Promise<usuarios | Repository>
+    async create(data:usuarios):Promise<usuarios | ResponseModel>
     {   
         try{
             const {nombre, email, password} = data;
@@ -32,7 +32,7 @@ class UsuariosRepository extends Repository implements IUsuariosRepository<usuar
         }
     }   
 
-    async get(id: number): Promise<usuarios | Repository> {
+    async get(id: number): Promise<usuarios | ResponseModel> {
         try{
             const user:any = await prisma.usuarios.findUnique({
                 where:
@@ -50,7 +50,7 @@ class UsuariosRepository extends Repository implements IUsuariosRepository<usuar
             return e;
         }
     }
-    async update(id: number, data: usuarios): Promise<Repository> {
+    async update(id: number, data: usuarios): Promise<ResponseModel> {
         const user:any = await prisma.usuarios.update({
             where:{
                 id:id

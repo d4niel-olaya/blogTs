@@ -1,12 +1,13 @@
 import { IPostsRepository } from "../interfaces/posts.interface";
 import prisma from "../database/database";
-import { posts, Prisma } from "@prisma/client";
-import { Repository } from "./repository";
-import response from "../models/response/response";
-import { type } from "os";
-class PostsRepository extends Repository implements IPostsRepository<posts ,Repository>
+import { posts } from "@prisma/client";
+import { ResponseModel } from "../models/response/response.model";
+class PostsRepository extends ResponseModel implements IPostsRepository<posts ,ResponseModel>
 {
-    async getAll(): Promise<Repository> {
+    constructor() {
+        super();
+    }
+    async getAll(): Promise<ResponseModel> {
         const posts:any = await prisma.posts.findMany({
             include:
             {
@@ -23,7 +24,7 @@ class PostsRepository extends Repository implements IPostsRepository<posts ,Repo
         return posts;
     }
 
-    async get(id: number): Promise<Repository> {
+    async get(id: number): Promise<ResponseModel> {
         try{
             const post:any = await prisma.posts.findUnique({
                 where:
@@ -35,18 +36,17 @@ class PostsRepository extends Repository implements IPostsRepository<posts ,Repo
                     categorias:true
                 }
             });
-            // const response:any = await super.response(200,post);
-            // return response;
-            return post;
+            const response:any = await super.response(200,post);
+            return response;
         }
         catch(e:any) {
             // r
-            const res:any = await response.getInstance(e);
+            const res:any = await super.getInstance(e);
             return res;
         }
     }
 
-    async create(data: posts): Promise<Repository> {
+    async create(data: posts): Promise<ResponseModel> {
         try{
            
             const post:any = await prisma.posts.create({
@@ -58,14 +58,14 @@ class PostsRepository extends Repository implements IPostsRepository<posts ,Repo
         }
         catch(e:any){
             // console.log(e.stack);
-            response.validationError(e);
+            super.validationError(e);
             return e;
             // const response:any = await super.badResponse(e);
             // return response;
         }
     }
 
-    async update(id: number, data: posts): Promise<Repository> {
+    async update(id: number, data: posts): Promise<ResponseModel> {
         const post:any = await prisma.posts.update({
             where:{
                 id:id
@@ -75,7 +75,7 @@ class PostsRepository extends Repository implements IPostsRepository<posts ,Repo
         return post;
     }
 
-    async delete(id: number): Promise<Repository> {
+    async delete(id: number): Promise<ResponseModel> {
         const post:any = await prisma.posts.delete({
             where:{
                 id:id

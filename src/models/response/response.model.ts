@@ -1,7 +1,7 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import { IValidate } from '../../interfaces/validate.interface';
 
-class ResponseError implements IValidate
+export class ResponseModel implements IValidate
 {
     
     async invalidTypeId() {
@@ -22,7 +22,7 @@ class ResponseError implements IValidate
     
     async validationError(error:Prisma.PrismaClientValidationError): Promise<Object> {
         const index:number = error.message.search('Argument');
-        const arg = error.message.slice(index);
+        const arg:String = error.message.slice(index);
         return {code:409, msg:arg};
     }
 
@@ -30,16 +30,16 @@ class ResponseError implements IValidate
         return {};
     }
 
-    async response(): Promise<Object> {
-        return {};
+    async response(code:number,data:Object | Array<any> | String): Promise<Object> {
+        return {code,data};
     }
 
     async unknowRequestError(): Promise<Object> {
         return {};    
     }
 
-    async initializationError(): Promise<Object> {
-        return {};
+    async initializationError(error:Prisma.PrismaClientInitializationError): Promise<Object> {
+        return {code:500, data:error.message};
     }
 
     async getInstance(error:Error):Promise<any> {
@@ -47,7 +47,7 @@ class ResponseError implements IValidate
             return
         }
         if(error instanceof Prisma.PrismaClientInitializationError){
-            return;
+            return await this.initializationError(error);
         }
 
         if(error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -55,7 +55,7 @@ class ResponseError implements IValidate
         }
 
         if(error instanceof Prisma.PrismaClientValidationError) {
-            return this.validationError(error);
+            return await this.validationError(error);
         }
         if(error instanceof Prisma.PrismaClientRustPanicError) {
             return;
@@ -65,5 +65,5 @@ class ResponseError implements IValidate
     }
 }
 
-export default new ResponseError();
+
 

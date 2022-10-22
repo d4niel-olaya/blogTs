@@ -11,7 +11,7 @@ export interface IValidate
 
     rustPanicError():Promise<Object>;
 
-    initializationError():Promise<Object>;
+    initializationError(erro:Error):Promise<Object>;
 
     validationError(error:Error):Promise<Object>;
 
@@ -19,6 +19,6 @@ export interface IValidate
 
     invalidTypeId():Promise<Object>;
 
-    response(): Promise<Object>;
+    response(code:number, data:Object | Array<any> | String): Promise<Object>;
 
 }
