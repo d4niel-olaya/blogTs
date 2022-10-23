@@ -13,5 +13,8 @@ router
 router
     .route('/posts/create')
     .post(postsController.store);
-      
+    
+router
+    .route('/posts/update/:id')
+    .put(postsController.update)      
 export default router;

@@ -36,6 +36,7 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,R
                     categorias:true
                 }
             });
+            if(post === null) throw new Error('Not found');
             const response:any = await super.response(200,post);
             return response;
         }
@@ -57,22 +58,25 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,R
             return post;
         }
         catch(e:any){
-            // console.log(e.stack);
-            super.validationError(e);
-            return e;
+            return await super.getInstance(e);
             // const response:any = await super.badResponse(e);
             // return response;
         }
     }
 
     async update(id: number, data: posts): Promise<ResponseModel> {
-        const post:any = await prisma.posts.update({
-            where:{
-                id:id
-            },
-            data:data
-        })
-        return post;
+        try{
+            const post:any = await prisma.posts.update({
+                where:{
+                    id:id
+                },
+                data:data
+            })
+            return await super.updated();
+        }
+        catch(e:any) {  
+            return await super.getInstance(e);
+        }
     }
 
     async delete(id: number): Promise<ResponseModel> {

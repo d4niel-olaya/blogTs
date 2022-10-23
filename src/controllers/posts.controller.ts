@@ -23,6 +23,13 @@ class PostsController implements IController<Request, Response>
         res.json(response);
 
     }
+
+    async update(req: Request, res: Response): Promise<void> {
+        const id:any = parseInt(req.params.id);
+        const data:any = req.body;
+        const response:any = await postsRepository.update(id,data);
+        res.sendStatus(response.code)
+    }
 }
 
 export default new PostsController();

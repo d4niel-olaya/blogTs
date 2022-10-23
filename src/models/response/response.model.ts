@@ -8,22 +8,22 @@ export class ResponseModel implements IValidate
         return {};
     }
 
-    async empty() {
-        return {};
+    async empty(error:Error) {
+        return {code:404, data:error.message};
     }
 
-    async knowRequestError(){   
-        return {};
+    async knowRequestError(error:Prisma.PrismaClientKnownRequestError){   
+        return {code:500, data:error.message};
     }
 
-    async rustPanicError(): Promise<Object> {
-        return {};
+    async rustPanicError(error:Prisma.PrismaClientRustPanicError): Promise<Object> {
+        return {code:500,data:error.message};
     }
     
     async validationError(error:Prisma.PrismaClientValidationError): Promise<Object> {
         const index:number = error.message.search('Argument');
         const arg:String = error.message.slice(index);
-        return {code:409, msg:arg};
+        return {code:400, msg:arg};
     }
 
     async typeException(): Promise<Object> {
@@ -34,8 +34,13 @@ export class ResponseModel implements IValidate
         return {code,data};
     }
 
-    async unknowRequestError(): Promise<Object> {
-        return {};    
+    async unknowRequestError(error:Prisma.PrismaClientUnknownRequestError): Promise<Object> {
+
+        return {code:500, data:error.message};    
+    }
+
+    async updated(): Promise<any> {
+        return {code:204,data:'Updated'};
     }
 
     async initializationError(error:Prisma.PrismaClientInitializationError): Promise<Object> {
@@ -44,24 +49,24 @@ export class ResponseModel implements IValidate
 
     async getInstance(error:Error):Promise<any> {
         if(error instanceof Prisma.PrismaClientUnknownRequestError) {
-            return
+            return await this.unknowRequestError(error);
         }
         if(error instanceof Prisma.PrismaClientInitializationError){
             return await this.initializationError(error);
         }
 
         if(error instanceof Prisma.PrismaClientKnownRequestError) {
-            return;
+            return await this.knowRequestError(error);
         }
 
         if(error instanceof Prisma.PrismaClientValidationError) {
             return await this.validationError(error);
         }
         if(error instanceof Prisma.PrismaClientRustPanicError) {
-            return;
+            return await this.rustPanicError(error);
         }
 
-        return;
+        return await this.empty(error);
     }
 }
 
