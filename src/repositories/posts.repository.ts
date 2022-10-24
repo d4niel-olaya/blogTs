@@ -16,6 +16,17 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,R
                     usuarios:true,
                     comentarios:{
                         include:{
+                            usuarios:true,
+                            interaccion_comentarios:{
+                                include:{
+                                    usuarios:true
+                                }
+                            }
+                        },
+
+                    },
+                    interaccion_posts:{
+                        include:{
                             usuarios:true
                         }
                     },
@@ -40,7 +51,22 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,R
                 },
                 include: {
                     usuarios:true,
-                    categorias:true
+                    categorias:true,
+                    comentarios:{
+                        include:{
+                            usuarios:true,
+                            interaccion_comentarios:{
+                                include:{
+                                    usuarios:true
+                                }
+                            }
+                        }
+                    },
+                    interaccion_posts:{
+                        include:{
+                            usuarios:true
+                        }
+                    },
                 }
             });
             if(post === null) throw new Error('Not found');
