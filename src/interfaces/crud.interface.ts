@@ -26,6 +26,6 @@ export interface IRepository<TReturn , TypeId, TResponse>
 
     update?(id:TypeId, data:TReturn):Promise<TReturn | TResponse>
 
-    delete?(id:TypeId):Promise<TReturn | TResponse>
+    deleted?(id:TypeId):Promise<TReturn | TResponse>
 }
 

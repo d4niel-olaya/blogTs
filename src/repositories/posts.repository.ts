@@ -8,20 +8,27 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,R
         super();
     }
     async getAll(): Promise<ResponseModel> {
-        const posts:any = await prisma.posts.findMany({
-            include:
-            {
-                usuarios:true,
-                comentarios:{
-                    include:{
-                        usuarios:true
-                    }
-                },
-                categorias:true
-            }
-        });
+        try{
 
-        return posts;
+            const posts:any = await prisma.posts.findMany({
+                include:
+                {
+                    usuarios:true,
+                    comentarios:{
+                        include:{
+                            usuarios:true
+                        }
+                    },
+                    categorias:true
+                }
+            });
+            const response:any = await super.response(200, posts);
+            return response;
+        }
+        catch(e:any) {
+            const error:any = await super.getInstance(e);
+            return error;
+        }
     }
 
     async get(id: number): Promise<ResponseModel> {
@@ -41,7 +48,6 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,R
             return response;
         }
         catch(e:any) {
-            // r
             const res:any = await super.getInstance(e);
             return res;
         }
@@ -53,14 +59,11 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,R
             const post:any = await prisma.posts.create({
                 data:data
             })
-            // const response:any = await super.response(201,post);
-            // return response;
-            return post;
+            const response:any = await super.response(201,'Created');
+            return response;
         }
         catch(e:any){
             return await super.getInstance(e);
-            // const response:any = await super.badResponse(e);
-            // return response;
         }
     }
 
@@ -72,20 +75,26 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,R
                 },
                 data:data
             })
-            return await super.updated();
+            return await super.updatedRes();
         }
         catch(e:any) {  
             return await super.getInstance(e);
         }
     }
 
-    async delete(id: number): Promise<ResponseModel> {
-        const post:any = await prisma.posts.delete({
-            where:{
-                id:id
-            }
-        });
-        return post;
+    async deleted(id: number): Promise<ResponseModel> {
+        try{
+            const post:any = await prisma.posts.delete({
+                where:{
+                    id:id
+                }
+            });
+            const response:any = await super.deletedRes();
+            return response;
+        }
+        catch(e:any) {
+            return await super.getInstance(e);
+        }
     }
     
 }

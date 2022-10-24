@@ -3,11 +3,9 @@ import { IValidate } from '../../interfaces/validate.interface';
 
 export class ResponseModel implements IValidate
 {
-    
-    async invalidTypeId() {
-        return {};
+    async deletedRes(): Promise<any> {
+        return {code:202, data:'Deleted'}
     }
-
     async empty(error:Error) {
         return {code:404, data:error.message};
     }
@@ -23,11 +21,7 @@ export class ResponseModel implements IValidate
     async validationError(error:Prisma.PrismaClientValidationError): Promise<Object> {
         const index:number = error.message.search('Argument');
         const arg:String = error.message.slice(index);
-        return {code:400, msg:arg};
-    }
-
-    async typeException(): Promise<Object> {
-        return {};
+        return {code:400, data:arg};
     }
 
     async response(code:number,data:Object | Array<any> | String): Promise<Object> {
@@ -35,12 +29,11 @@ export class ResponseModel implements IValidate
     }
 
     async unknowRequestError(error:Prisma.PrismaClientUnknownRequestError): Promise<Object> {
-
         return {code:500, data:error.message};    
     }
 
-    async updated(): Promise<any> {
-        return {code:204,data:'Updated'};
+    async updatedRes(): Promise<any> {
+        return {code:204,data:''};
     }
 
     async initializationError(error:Prisma.PrismaClientInitializationError): Promise<Object> {

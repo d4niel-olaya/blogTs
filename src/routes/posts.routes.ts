@@ -16,5 +16,10 @@ router
     
 router
     .route('/posts/update/:id')
-    .put(postsController.update)      
+    .put(postsController.update)  
+    
+router
+    .route('/posts/deleted/:id')
+    .delete(postsController.destroy);
+    
 export default router;
