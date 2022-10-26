@@ -1,6 +1,4 @@
 import { Request, Response } from "express";
-import { ParamsDictionary } from "express-serve-static-core";
-import { ParsedQs } from "qs";
 import { IController } from "../interfaces/crud.interface";
 import postsRepository from "../repositories/posts.repository";
 
@@ -8,12 +6,14 @@ class PostsController implements IController<Request, Response>
 {
     async index(req: Request, res: Response): Promise<void> {
         const posts:any = await postsRepository.getAll();
-        res.status(posts.code).json(posts.data);
+        // res.status(posts.code).json(posts.data);
+        res.render('index', {data:posts.data, code:posts.code});
     }
 
     async show(req:Request, res:Response):Promise<void>{
         const post:any = await postsRepository.get(parseInt(req.params.id));
-        res.status(post.code).json(post.data)
+        // res.status(post.code).json(post.data)
+        res.render('post', {data:post.data, code:post.code})
     }
     async store(req: Request, res: Response): Promise<void> {
         const body:any = req.body;
