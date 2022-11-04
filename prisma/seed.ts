@@ -34,14 +34,20 @@ async function main(){
         //     contenido:faker.lorem.text()
         //   }
         // })
-
-        await prisma.interaccion_comentarios.create({
+        await prisma.interaccion_posts.create({
           data:{
-            id_comentario:faker.datatype.number({min:1,max:100}),
+            id_post:faker.datatype.number({min:1,max:100}),
             id_user:faker.datatype.number({min:1,max:100}),
             tipo:faker.helpers.arrayElement(["Me_encanta", "Me_sorprende", "Me_asombra"])
           }
         })
+        // await prisma.interaccion_comentarios.create({
+        //   data:{
+        //     id_comentario:faker.datatype.number({min:1,max:100}),
+        //     id_user:faker.datatype.number({min:1,max:100}),
+        //     tipo:faker.helpers.arrayElement(["Me_encanta", "Me_sorprende", "Me_asombra"])
+        //   }
+        // })
     }
 }
 

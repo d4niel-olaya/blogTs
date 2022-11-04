@@ -19,6 +19,7 @@ html(lang="en")
             button(class="btn btn-primary") Crear Post
     if code == 200
         for element in data
+            - const url = element.id
             h2=element.titulo
             p Escrito por #{element.usuarios.nombre}
             p=element.contenido
@@ -27,3 +28,4 @@ html(lang="en")
                 for comentario in element.comentarios 
                     p=comentario.contenido
                     p Escrito por #{comentario.usuarios.nombre}
+                a(href="/posts/" + url, class="p-1 rounded") Ver detalles

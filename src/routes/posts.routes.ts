@@ -1,6 +1,6 @@
 import { Router } from "express";
 import postsController from "../controllers/posts.controller";
-
+import verifySession from "../helpers/session.middleware";
 const router:Router = Router();
 
 router
