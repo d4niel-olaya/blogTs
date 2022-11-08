@@ -14,38 +14,80 @@ model categorias {
 }
 
 model comentarios {
-  id        Int       @id @default(autoincrement())
-  id_user   Int
-  id_post   Int
-  contenido String    @db.Text
-  fecha     DateTime? @default(now()) @db.DateTime(0)
-  usuarios  usuarios  @relation(fields: [id_user], references: [id], onDelete: Cascade, map: "comentarios_ibfk_1")
-  posts     posts     @relation(fields: [id_post], references: [id], onDelete: Cascade, map: "comentarios_ibfk_2")
+  id                      Int                       @id @default(autoincrement())
+  id_user                 Int
+  id_post                 Int
+  contenido               String                    @db.Text
+  fecha                   DateTime?                 @default(now()) @db.DateTime(0)
+  usuarios                usuarios                  @relation(fields: [id_user], references: [id], onDelete: Cascade, map: "comentarios_ibfk_1")
+  posts                   posts                     @relation(fields: [id_post], references: [id], onDelete: Cascade, map: "comentarios_ibfk_2")
+  interaccion_comentarios interaccion_comentarios[]
 
   @@index([id_post], map: "id_post")
   @@index([id_user], map: "id_user")
 }
 
 model posts {
-  id          Int           @id @default(autoincrement())
-  id_user     Int
-  id_category Int
-  titulo      String        @db.VarChar(100)
-  contenido   String        @db.Text
-  fecha       DateTime?     @default(now()) @db.DateTime(0)
-  usuarios    usuarios      @relation(fields: [id_user], references: [id], onDelete: Cascade, map: "posts_ibfk_1")
-  categorias  categorias    @relation(fields: [id_category], references: [id], onDelete: Cascade, map: "posts_ibfk_2")
-  comentarios comentarios[]
+  id                Int                 @id @default(autoincrement())
+  id_user           Int
+  id_category       Int
+  titulo            String              @db.VarChar(100)
+  contenido         String              @db.Text
+  fecha             DateTime?           @default(now()) @db.DateTime(0)
+  usuarios          usuarios            @relation(fields: [id_user], references: [id], onDelete: Cascade, map: "posts_ibfk_1")
+  categorias        categorias          @relation(fields: [id_category], references: [id], onDelete: Cascade, map: "posts_ibfk_2")
+  comentarios       comentarios[]
+  interaccion_posts interaccion_posts[]
 
   @@index([id_category], map: "id_category")
   @@index([id_user], map: "id_user")
 }
 
 model usuarios {
-  id          Int           @id @default(autoincrement())
-  nombre      String        @db.VarChar(100)
-  email       String        @unique(map: "email") @db.VarChar(100)
-  password    String        @db.VarChar(100)
-  comentarios comentarios[]
-  posts       posts[]
+  id                      Int                       @id @default(autoincrement())
+  nombre                  String                    @db.VarChar(100)
+  email                   String                    @unique(map: "email") @db.VarChar(100)
+  password                String                    @db.VarChar(100)
+  comentarios             comentarios[]
+  interaccion_comentarios interaccion_comentarios[]
+  interaccion_posts       interaccion_posts[]
+  posts                   posts[]
+}
+
+model interaccion_comentarios {
+  id            Int                           @id @default(autoincrement())
+  id_comentario Int
+  id_user       Int
+  tipo          interaccion_comentarios_tipo? @default(Me_encanta)
+  fecha         DateTime?                     @default(now()) @db.DateTime(0)
+  usuarios      usuarios                      @relation(fields: [id_user], references: [id], onDelete: Cascade, map: "interaccion_comentarios_ibfk_1")
+  comentarios   comentarios                   @relation(fields: [id_comentario], references: [id], onDelete: Cascade, map: "interaccion_comentarios_ibfk_2")
+
+  @@index([id_comentario], map: "id_comentario")
+  @@index([id_user], map: "id_user")
+}
+
+model interaccion_posts {
+  id       Int                     @id @default(autoincrement())
+  id_post  Int
+  id_user  Int
+  tipo     interaccion_posts_tipo? @default(Me_encanta)
+  fecha    DateTime?               @default(now()) @db.DateTime(0)
+  posts    posts                   @relation(fields: [id_post], references: [id], onDelete: Cascade, map: "interaccion_posts_ibfk_1")
+  usuarios usuarios                @relation(fields: [id_user], references: [id], onDelete: Cascade, map: "interaccion_posts_ibfk_2")
+
+  @@index([id_post], map: "id_post")
+  @@index([id_user], map: "id_user")
+}
+
+enum interaccion_comentarios_tipo {
+  Me_encanta   @map("Me encanta")
+  Me_sorprende @map("Me sorprende")
+  Me_asombra   @map("Me asombra")
+}
+
+enum interaccion_posts_tipo {
+  Me_encanta   @map("Me encanta")
+  Me_sorprende @map("Me sorprende")
+  Me_asombra   @map("Me asombra")
 }

@@ -5,8 +5,12 @@ import authenticationController from "../controllers/authentication.controller";
 const router : Router = Router()
 
 router
-    .route('/login')
-    .post(authenticationController.Verify);
+    .route('/')
+    .get(authenticationController.home)
 
+
+router
+    .route('/login')
+    .post(authenticationController.login);
 
 export default router;

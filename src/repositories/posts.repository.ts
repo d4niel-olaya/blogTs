@@ -1,53 +1,126 @@
 import { IPostsRepository } from "../interfaces/posts.interface";
 import prisma from "../database/database";
 import { posts } from "@prisma/client";
-
-
-
-class PostsRepository implements IPostsRepository<posts>
+import { ResponseModel } from "../models/response/response.model";
+class PostsRepository extends ResponseModel implements IPostsRepository<posts ,ResponseModel>
 {
-    async getAll(): Promise<posts> {
-        const posts:any = await prisma.posts.findMany({
-            include:
-            {
-                usuarios:true,
-                comentarios:{
-                    include:{
-                        usuarios:true
-                    }
+    constructor() {
+        super();
+    }
+    async getAll(): Promise<ResponseModel> {
+        try{
+
+            const posts:any = await prisma.posts.findMany({
+                include:
+                {
+                    usuarios:true,
+                    comentarios:{
+                        include:{
+                            usuarios:true,
+                            interaccion_comentarios:{
+                                include:{
+                                    usuarios:true
+                                }
+                            }
+                        },
+
+                    },
+                    interaccion_posts:{
+                        include:{
+                            usuarios:true
+                        }
+                    },
+                    categorias:true
+                }
+            });
+            const response:any = await super.response(200, posts);
+            return response;
+        }
+        catch(e:any) {
+            const error:any = await super.getInstance(e);
+            return error;
+        }
+    }
+
+    async get(id: number): Promise<ResponseModel> {
+        try{
+            const post:any = await prisma.posts.findUnique({
+                where:
+                {
+                    id:id
                 },
-                categorias:true
-            }
-        });
-
-        return posts;
+                include: {
+                    usuarios:true,
+                    categorias:true,
+                    comentarios:{
+                        include:{
+                            usuarios:true,
+                            interaccion_comentarios:{
+                                include:{
+                                    usuarios:true
+                                }
+                            }
+                        }
+                    },
+                    interaccion_posts:{
+                        include:{
+                            usuarios:true
+                        }
+                    },
+                }
+            });
+            if(post === null) throw new Error('Not found');
+            const response:any = await super.response(200,post);
+            return response;
+        }
+        catch(e:any) {
+            const res:any = await super.getInstance(e);
+            return res;
+        }
     }
 
-    async get(id: number): Promise<posts> {
-        const post:any = await prisma.posts.findUnique({
-            where:
-            {
-                id:id
-            }
-        });
-        return post;
+    async create(data: posts): Promise<ResponseModel> {
+        try{
+           
+            const post:any = await prisma.posts.create({
+                data:data
+            })
+            const response:any = await super.response(201,'Created');
+            return response;
+        }
+        catch(e:any){
+            return await super.getInstance(e);
+        }
     }
 
-    async create(data: posts): Promise<posts> {
-        const post:any = await prisma.posts.create({
-            data:data
-        })
-        return post;
+    async update(id: number, data: posts): Promise<ResponseModel> {
+        try{
+            const post:any = await prisma.posts.update({
+                where:{
+                    id:id
+                },
+                data:data
+            })
+            return await super.updatedRes();
+        }
+        catch(e:any) {  
+            return await super.getInstance(e);
+        }
     }
 
-    async update(id: number, data: posts): Promise<posts> {
-        const post:any = await prisma.posts.update({
-            where:{
-                id:id
-            },
-            data:data
-        })
-        return post;
+    async deleted(id: number): Promise<ResponseModel> {
+        try{
+            const post:any = await prisma.posts.delete({
+                where:{
+                    id:id
+                }
+            });
+            const response:any = await super.deletedRes();
+            return response;
+        }
+        catch(e:any) {
+            return await super.getInstance(e);
+        }
     }
     
 }

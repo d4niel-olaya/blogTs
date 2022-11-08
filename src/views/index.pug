@@ -17,12 +17,15 @@ html(lang="en")
             label(for="" class="form-label") Contenido del comentario
             textarea(name="contenido", cols="100", rows="10" class="form-control") 
             button(class="btn btn-primary") Crear Post
-    for element in data
-        h2=element.titulo
-        p Escrito por #{element.usuarios.nombre}
-        p=element.contenido
-        div
-            p Comentarios 
-            for comentario in element.comentarios 
-                p=comentario.contenido
-                p Escrito por #{comentario.usuarios.nombre}
+    if code == 200
+        for element in data
+            - const url = element.id
+            h2=element.titulo
+            p Escrito por #{element.usuarios.nombre}
+            p=element.contenido
+            div
+                p Comentarios 
+                for comentario in element.comentarios 
+                    p=comentario.contenido
+                    p Escrito por #{comentario.usuarios.nombre}
+                a(href="/posts/" + url, class="p-1 rounded") Ver detalles
