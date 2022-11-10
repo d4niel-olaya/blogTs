@@ -3,23 +3,16 @@ import postsController from "../controllers/posts.controller";
 import verifySession from "../helpers/session.middleware";
 const router:Router = Router();
 
+// router.get('/posts', verifySession, postsController.index);
 router
     .route('/posts')
-    .get(postsController.index);
-
+    .get(postsController.index)
+    .post(postsController.store)
+    .put(postsController.update)
+    .delete(postsController.destroy)
+    
 router
     .route('/posts/:id')
     .get(postsController.show);
-router
-    .route('/posts/create')
-    .post(postsController.store);
-    
-router
-    .route('/posts/update/:id')
-    .put(postsController.update)  
-    
-router
-    .route('/posts/deleted/:id')
-    .delete(postsController.destroy);
     
 export default router;

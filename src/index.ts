@@ -6,7 +6,7 @@ import comentariosRouter from '../src/routes/comentarios.routes';
 import usuariosRouter from '../src/routes/usuarios.routes';
 import authRouter from '../src/routes/auth.routes';
 import path from 'path';
-
+import verifySession from './helpers/session.middleware';
 
 const app = express()
 
