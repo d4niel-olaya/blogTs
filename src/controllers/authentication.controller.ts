@@ -18,7 +18,7 @@ class AuthenticacionController
         const password = req.body.password;
         const response:any = await autenticacionRepository.verifyUser(user, password);  
         if(response == 1){
-            res.cookie('session', 'true', {expires:new Date(Date.now() + 9999)})
+            res.cookie('session', 'true');
             res.redirect('/posts');
             return;
         }
