@@ -7,16 +7,18 @@ html(lang="en")
         link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous")
         title Document
     body 
-
+    include ../components/navbar.pug
     if code==200
-        p Categoria :  #{data.categorias.nombre}
-        h2= data.titulo 
-        p Escrito por #{data.usuarios.nombre}
-        p= data.fecha
-        p= data.contenido
-        h1 Comentarios
-        for comentario in data.comentarios
-            p Fecha #{comentario.fecha}
-            h3= comentario.usuarios.nombre
-            p= comentario.contenido
-            p= comentario.interaccion_comentarios.length
+        div(class="card")
+            div(class="card-body")
+                p(class="card-subtitle mb-2 text-muted") Categoria :  #{data.categorias.nombre}
+                h2= data.titulo 
+                p(class="card subtitle mb-2") Escrito por #{data.usuarios.nombre}
+                div(class="card-footer text-muted")= data.fecha
+                p(class="card-text")= data.contenido
+                h1 Comentarios
+                for comentario in data.comentarios
+                    div(class="card-footer text-muted") Fecha #{comentario.fecha}
+                    h3= comentario.usuarios.nombre
+                    p(class="card-text")= comentario.contenido
+                    p= comentario.interaccion_comentarios.length

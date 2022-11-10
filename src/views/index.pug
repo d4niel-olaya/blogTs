@@ -31,5 +31,5 @@ html(lang="en")
                         div(class="card-body")
                             p(class="h3") Comentarios 
                             for comentario in element.comentarios 
-                                p(class="card-title") Escrito por #{comentario.usuarios.nombre}
+                                p(class="h5") Escrito por #{comentario.usuarios.nombre}
                                 p(class="card-text")=comentario.contenido
