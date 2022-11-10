@@ -25,6 +25,14 @@ class AuthenticacionRepository implements IAuthenticacionRepository<usuarios>
         })
         return user;
     }
+    async getUser(email:string):Promise<usuarios>{
+        const user:any = await prisma.usuarios.findMany({
+            where:{
+                email:email
+            }
+        })
+        return user;
+    }
 }
 
 export default new AuthenticacionRepository();

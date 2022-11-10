@@ -9,7 +9,6 @@ import path from 'path';
 import verifySession from './helpers/session.middleware';
 
 const app = express()
-
 app.use(cookieParser());
 
 app.use(express.urlencoded({
