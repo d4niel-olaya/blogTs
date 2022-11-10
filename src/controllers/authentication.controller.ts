@@ -24,6 +24,11 @@ class AuthenticacionController
         }
         res.redirect('/');
     }
+
+    async logout(req:Request, res:Response) {
+        res.clearCookie('session');
+        res.redirect('/');
+    }
 }
 
 export default new AuthenticacionController();

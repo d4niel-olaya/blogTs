@@ -13,4 +13,8 @@ router
     .route('/login')
     .post(authenticationController.login);
 
+router
+    .route('/logout')
+    .get(authenticationController.logout);
+
 export default router;
