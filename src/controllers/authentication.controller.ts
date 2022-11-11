@@ -53,7 +53,7 @@ class AuthenticacionController
      * @redirect Redirect to home and clear all cookies
      */
     async logout(req:Request, res:Response) {
-        res.clearCookie('session').clearCookie('user');
+        res.clearCookie('session')
         res.redirect('/');
     }
 }

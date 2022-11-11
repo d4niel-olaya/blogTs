@@ -3,6 +3,12 @@ import { IValidate } from '../../interfaces/validate.interface';
 
 export class ResponseModel implements IValidate
 {
+    public code: number = 200;
+    public data: string | any[] = [];
+    // constructor(){
+    //     this
+    // }
+
     async deletedRes(): Promise<any> {
         return {code:202, data:'Deleted'}
     }

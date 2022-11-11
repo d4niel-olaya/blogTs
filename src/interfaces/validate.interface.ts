@@ -1,6 +1,9 @@
 
 export interface IValidate
 {
+    code:number;
+
+    data:Array<any> | string;
 
     updatedRes():Promise<any>;
 
