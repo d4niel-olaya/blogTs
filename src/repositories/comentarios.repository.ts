@@ -1,5 +1,5 @@
 import { IComentariosRepository } from "../interfaces/comentarios.interaface";
-import { comentarios } from "@prisma/client";
+import { comentarios, Prisma } from "@prisma/client";
 import prisma from "../database/database";
 import {ResponseModel} from '../models/response/response.model';
 
@@ -9,7 +9,13 @@ class ComentarioRepository<comentarios> implements IComentariosRepository<coment
     async getAll(): Promise<ResponseModel> {
         const comentarios:any = await prisma.comentarios.findMany({
             include:{
-                usuarios:true
+                usuarios:{
+                    select:{
+                        id:true,
+                        nombre:true,
+                        email:true
+                    }
+                }
             }
         });
         return comentarios; 
@@ -23,7 +29,13 @@ class ComentarioRepository<comentarios> implements IComentariosRepository<coment
             ,
             include:
             {
-                usuarios:true
+                usuarios:{
+                    select:{
+                        id:true,
+                        nombre:true,
+                        email:true
+                    }
+                }
             }
         })
         return comentario;

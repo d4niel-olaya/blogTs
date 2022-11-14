@@ -9,7 +9,7 @@ export class ResponseModel implements IValidate
     //     this
     // }
 
-    async deletedRes(): Promise<any> {
+    async deletedRes(): Promise<object> {
         return {code:202, data:'Deleted'}
     }
     async empty(error:Error) {

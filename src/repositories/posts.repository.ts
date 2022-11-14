@@ -1,6 +1,6 @@
 import { IPostsRepository } from "../interfaces/posts.interface";
 import prisma from "../database/database";
-import { posts } from "@prisma/client";
+import { posts, Prisma } from "@prisma/client";
 import { ResponseModel } from "../models/response/response.model";
 class PostsRepository extends ResponseModel implements IPostsRepository<posts ,ResponseModel>
 {
@@ -10,16 +10,26 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,R
     async getAll(): Promise<ResponseModel> {
         try{
 
-            const posts:any = await prisma.posts.findMany({
+            const posts:object | null = await prisma.posts.findMany({
                 include:
                 {
                     usuarios:true,
                     comentarios:{
                         include:{
-                            usuarios:true,
+                            usuarios:{
+                                select:{
+                                    id:true,
+                                    nombre:true
+                                }
+                            },
                             interaccion_comentarios:{
                                 include:{
-                                    usuarios:true
+                                    usuarios:{
+                                        select:{
+                                            id:true,
+                                            nombre:true
+                                        }
+                                    }
                                 }
                             }
                         },
@@ -27,7 +37,12 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,R
                     },
                     interaccion_posts:{
                         include:{
-                            usuarios:true
+                            usuarios:{
+                                select:{
+                                    id:true,
+                                    nombre:true
+                                }
+                            }
                         }
                     },
                     categorias:true
@@ -44,27 +59,44 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,R
 
     async get(id: number): Promise<ResponseModel> {
         try{
-            const post:any = await prisma.posts.findUnique({
+            const post:object | null = await prisma.posts.findUnique({
                 where:
                 {
                     id:id
                 },
                 include: {
-                    usuarios:true,
+                    usuarios:{
+                        
+                    },
                     categorias:true,
                     comentarios:{
                         include:{
-                            usuarios:true,
+                            usuarios:{
+                                select:{
+                                    id:true,
+                                    nombre:true,
+                                }
+                            },
                             interaccion_comentarios:{
                                 include:{
-                                    usuarios:true
+                                    usuarios:{
+                                        select:{
+                                            id:true,
+                                            nombre:true
+                                        }
+                                    }
                                 }
                             }
                         }
                     },
                     interaccion_posts:{
                         include:{
-                            usuarios:true
+                            usuarios:{
+                                select:{
+                                    id:true,
+                                    nombre:true
+                                }
+                            }
                         }
                     },
                 }
@@ -82,7 +114,7 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,R
     async create(data: posts): Promise<ResponseModel> {
         try{
            
-            const post:any = await prisma.posts.create({
+            const post:object | null = await prisma.posts.create({
                 data:data
             })
             const response:any = await super.response(201,'Created');
@@ -95,7 +127,7 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,R
 
     async update(id: number, data: posts): Promise<ResponseModel> {
         try{
-            const post:any = await prisma.posts.update({
+            const post:object | null = await prisma.posts.update({
                 where:{
                     id:id
                 },
@@ -110,7 +142,7 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,R
 
     async deleted(id: number): Promise<ResponseModel> {
         try{
-            const post:any = await prisma.posts.delete({
+            const post:object | null = await prisma.posts.delete({
                 where:{
                     id:id
                 }
