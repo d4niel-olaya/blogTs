@@ -5,14 +5,11 @@ export class ResponseModel implements IValidate
 {
     public code: number = 200;
     public data: string | any[] = [];
-    // constructor(){
-    //     this
-    // }
 
     async deletedRes(): Promise<object> {
         return {code:202, data:'Deleted'}
     }
-    async empty(error:Error) {
+    async empty(error:Error):Promise<object> {
         return {code:404, data:error.message};
     }
 

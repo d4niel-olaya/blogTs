@@ -6,7 +6,7 @@ import {ResponseModel} from '../models/response/response.model';
 class ComentarioRepository<comentarios> implements IComentariosRepository<comentarios, ResponseModel>
 {   
 
-    async getAll(): Promise<ResponseModel> {
+    async getAll(): Promise<ResponseModel | comentarios> {
         const comentarios:any = await prisma.comentarios.findMany({
             include:{
                 usuarios:{
