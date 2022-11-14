@@ -44,6 +44,10 @@ class PostsController implements IController<Request, Response>
         console.log(req.body);
         const body:posts = req.body;
         const response:ResponseModel = await postsRepository.create(body);
+        if(response.code == 201){
+            res.redirect('/posts');
+            return;
+        }
         res.status(response.code).json(response.data);
 
     }
