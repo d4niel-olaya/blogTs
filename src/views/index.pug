@@ -8,17 +8,20 @@ html(lang="en")
         title Document
     body 
     include ../components/navbar.pug
-    h1 Crea tu comentario
-    div(class="mb-3")
-        form(action="/posts/create" method="POST") 
-            input(type="text" name="id_user")
-            input(type="text" name="id_category")
-            label(for="" class="form-label") Titulo del comentario
-            input(type="text" class="form-control" name="titulo")
-            label(for="" class="form-label") Contenido del comentario
-            textarea(name="contenido", cols="100", rows="10" class="form-control") 
-            button(class="btn btn-primary") Crear Post
-    if code == 200
+    if code == 200 
+        h1 Crea tu comentario
+        div(class="mb-3")
+            form(action="/posts" method="POST") 
+                label(class="form-label") Categoria
+                select(class="form-select" name="id_category")
+                    option(selected) Elige una categoria
+                    for categori in categorias 
+                        option(value=categori.id)=categori.nombre
+                label(for="" class="form-label") Titulo del comentario
+                input(type="text" class="form-control" name="titulo")
+                label(for="" class="form-label") Contenido del comentario
+                textarea(name="contenido", cols="100", rows="10" class="form-control") 
+                button(class="btn btn-primary") Crear Post
         for element in data
             - const url = element.id
             div(class="card")
