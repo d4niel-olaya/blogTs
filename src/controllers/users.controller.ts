@@ -22,7 +22,8 @@ class UsuariosController implements IController<Request, Response>{
 
         const id:number = parseInt(req.params.id);
         const result:any = await usersRepository.get(id);
-        res.json(result);
+        res.render('profile', {data:result, id:req.cookies.user})
+        // res.json(result)
     }
     /**
      * Update an user

@@ -65,9 +65,7 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,R
                     id:id
                 },
                 include: {
-                    usuarios:{
-                        
-                    },
+                    usuarios:true,
                     categorias:true,
                     comentarios:{
                         include:{

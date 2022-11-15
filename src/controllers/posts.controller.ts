@@ -17,7 +17,7 @@ class PostsController implements IController<Request, Response>
         const ctgs:object | null = await cateogoryRepository.getAll(); 
         console.log(ctgs);
         // res.status(posts.code).json(posts.data);
-        res.render('index', {data:posts.data, code:posts.code, categorias:ctgs});
+        res.render('index', {data:posts.data, code:posts.code, categorias:ctgs, id:req.cookies.user});
     }
     /**
      * Query post by id
@@ -45,7 +45,7 @@ class PostsController implements IController<Request, Response>
         const body:posts = req.body;
         const response:ResponseModel = await postsRepository.create(body);
         if(response.code == 201){
-            res.redirect('/posts',201);
+            res.redirect(201,'/posts');
             return;
         }
         res.status(response.code).json(response.data);

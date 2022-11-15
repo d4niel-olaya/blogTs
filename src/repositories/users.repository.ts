@@ -40,7 +40,22 @@ class UsuariosRepository extends ResponseModel implements IUsuariosRepository<us
                     id:id
                 },
                 include:{
-                    posts:true
+                    posts:{
+                        include:{
+                            interaccion_posts:true,
+                            comentarios:{
+                                include:{
+                                    usuarios:{
+                                        select:{
+                                            id:true,
+                                            nombre:true,
+                                            email:true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
                 }
             });
             return user;

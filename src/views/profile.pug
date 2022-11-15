@@ -1,0 +1,13 @@
+include ../components/header.pug
+include mixins/cardpost.pug
+body
+    +navbar(id)
+    -const autor = data.nombre
+    for element in data.posts
+        - const url = element.id
+        - const titulo = element.titulo 
+        - const contenido = element.contenido
+        +post(titulo,autor,contenido,url)
+        for comentario in element.comentarios
+            div(class="container")
+                +comentario(comentario.usuarios.nombre, comentario.contenido)
