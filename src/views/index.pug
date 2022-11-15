@@ -5,10 +5,12 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous")
+        <link rel="stylesheet" href="sweetalert2.min.css">
         title Document
     body 
     include ../components/navbar.pug
-    if code == 200
+    include mixins/cardpost.pug
+    if code >= 200 && code <= 204
         h1 Crea tu comentario
         div(class="mb-3")
             form(action="/posts" method="POST") 
@@ -24,15 +26,13 @@ html(lang="en")
                 button(class="btn btn-primary") Crear Post
         for element in data
             - const url = element.id
-            div(class="card")
+            - const titulo = element.titulo 
+            - const autor = element.usuarios.nombre 
+            - const contenido = element.contenido
+            +post(titulo, autor, contenido, url)
                 div(class="card-body")
-                    h2(class="card-title")=element.titulo
-                    p(class="card-subtitle mb-2 text-muted") Escrito por #{element.usuarios.nombre}
-                    p(class="card-text")=element.contenido
-                    a(class="card-link" href="/posts/" + url, class="p-1 rounded") Ver detalles
-                    div(class="card")
-                        div(class="card-body")
-                            p(class="h3") Comentarios 
-                            for comentario in element.comentarios 
-                                p(class="h5") Escrito por #{comentario.usuarios.nombre}
-                                p(class="card-text")=comentario.contenido
+                    p(class="h3") Comentarios 
+                    for comentario in element.comentarios 
+                        p(class="h5") Escrito por #{comentario.usuarios.nombre}
+                        p(class="card-text")=comentario.contenido 
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
