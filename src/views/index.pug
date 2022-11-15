@@ -30,9 +30,8 @@ html(lang="en")
             - const autor = element.usuarios.nombre 
             - const contenido = element.contenido
             +post(titulo, autor, contenido, url)
-                div(class="card-body")
-                    p(class="h3") Comentarios 
-                    for comentario in element.comentarios 
-                        p(class="h5") Escrito por #{comentario.usuarios.nombre}
-                        p(class="card-text")=comentario.contenido 
+            h3(class="text-center") Comentarios
+            for comentario in element.comentarios 
+                div(class="container")
+                    +comentario(comentario.usuarios.nombre, comentario.contenido)
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

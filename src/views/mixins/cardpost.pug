@@ -5,3 +5,10 @@ mixin post(titulo, autor, contenido, url)
             p(class="card-subtitle mb-2 text-muted") Escrito por #{auto}
             p(class="card-text")=contenido 
             a(class="card-link" href="/posts/" + url, class="p-1 rounded") Ver detalles
+
+
+mixin comentario(autor, contenido)
+    div(class="card")
+        div(class="card-body")
+            p(class="h4") Escrito por #{autor}
+            p(class="card-text")=contenido
