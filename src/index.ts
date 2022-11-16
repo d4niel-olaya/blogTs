@@ -5,12 +5,13 @@ import postsRouter from '../src/routes/posts.routes';
 import comentariosRouter from '../src/routes/comentarios.routes';
 import usuariosRouter from '../src/routes/usuarios.routes';
 import authRouter from '../src/routes/auth.routes';
-import path from 'path';
+import path, { dirname } from 'path';
 import verifySession from './helpers/session.middleware';
 
 const app = express()
 
 app.use(cookieParser());
+app.use('/public', express.static(path.join(__dirname, '../public')))
 app.use(express.urlencoded({
     extended:true
 }));
@@ -20,16 +21,15 @@ app.set('view engine', 'pug');
 
 app.set('views',path.join(__dirname, './views'))
 
-
 app.use(authRouter);
-app.use((req,res,next) =>{ // Callback to protect routes 
-    if(!Object.keys(req.cookies).includes('session') || req.cookies['session'] ===  ''){
-        res.redirect('/');
-    }
-    else{
-        next()
-    }
-})
+// app.use((req,res,next) =>{ // Callback to protect routes 
+//     if(!Object.keys(req.cookies).includes('session') || req.cookies['session'] ===  ''){
+//         res.redirect('/');
+//     }
+//     else{
+//         next()
+//     }
+// })
 app.use(postsRouter);
 app.use(comentariosRouter);
 app.use(usuariosRouter);

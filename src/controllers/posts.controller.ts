@@ -77,6 +77,11 @@ class PostsController implements IController<Request, Response>
         const response:ResponseModel = await postsRepository.deleted(id);
         res.status(response.code).json(response.data);
     }
+
+    async getAll(req:Request, res:Response):Promise<void>{
+        const posts:ResponseModel = await postsRepository.getAll();
+        res.json(posts.data);
+    }
 }
 
 export default new PostsController();

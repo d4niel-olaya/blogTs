@@ -1,6 +1,7 @@
 include ../components/header.pug
 body 
 include mixins/cardpost.pug
+include mixins/interacciones.pug
 if code >= 200 && code <= 204
     +navbar(id)
     h1 Crea tu comentario
@@ -26,4 +27,5 @@ if code >= 200 && code <= 204
         for comentario in element.comentarios 
             div(class="container")
                 +comentario(comentario.usuarios.nombre, comentario.contenido)
+        +likes(element.interaccion_posts)
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

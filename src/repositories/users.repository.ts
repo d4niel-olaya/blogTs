@@ -43,6 +43,11 @@ class UsuariosRepository extends ResponseModel implements IUsuariosRepository<us
                     posts:{
                         include:{
                             interaccion_posts:true,
+                            categorias:{
+                                select:{
+                                    nombre:true
+                                }
+                            },
                             comentarios:{
                                 include:{
                                     usuarios:{

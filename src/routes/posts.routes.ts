@@ -14,5 +14,11 @@ router
 router
     .route('/posts/:id')
     .get(postsController.show);
+
+
+// Api route
+router
+    .route('/api/v1/posts')
+    .get(postsController.getAll);
     
 export default router;
