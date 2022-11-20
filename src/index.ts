@@ -22,6 +22,7 @@ app.set('view engine', 'pug');
 app.set('views',path.join(__dirname, './views'))
 
 app.use(authRouter);
+app.use(verifySession);
 // app.use((req,res,next) =>{ // Callback to protect routes 
 //     if(!Object.keys(req.cookies).includes('session') || req.cookies['session'] ===  ''){
 //         res.redirect('/');

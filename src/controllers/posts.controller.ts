@@ -15,7 +15,8 @@ class PostsController implements IController<Request, Response>
     async index(req: Request, res: Response): Promise<void> {
         const posts:ResponseModel = await postsRepository.getAll();
         const ctgs:object | null = await cateogoryRepository.getAll(); 
-        console.log(ctgs);
+        // console.log(ctgs);
+        console.log(req.headers.authorization);
         // res.status(posts.code).json(posts.data);
         res.render('index', {data:posts.data, code:posts.code, categorias:ctgs, id:req.cookies.user});
     }

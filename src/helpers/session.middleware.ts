@@ -3,10 +3,8 @@ import {Request, Response} from 'express';
 
 
 async function verifySession(req:Request, res:Response){
-    if (!Object.keys(req.cookies).includes('session') || req.cookies['session'] === 'false'){
-            res.redirect('/')
-    }
-    return
+    res.set('WWW-Authenticate', 'Basic realm="user_pages"');
+    res.sendStatus(401)
 }
 
 export default verifySession

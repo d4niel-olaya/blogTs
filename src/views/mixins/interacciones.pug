@@ -5,6 +5,6 @@ mixin likes(array)
     - let c_love = array.filter(element=> element.tipo === 'Me_encanta').length
     - let c_awesome = array.filter(element => element.tipo === 'Me_asombra').length;
     - let c_like = array.filter(element => element.tipo === 'Me_gusta').length;
-    div(style="width:25px; display:flex; align-content:center")
+    div(class="likes")
         img(src="../public/assets/heart-solid.svg" style="display:block")
         p=c_awesome
