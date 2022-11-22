@@ -9,7 +9,6 @@
 
 <h3>Routes</h3>
 
-<code>
 
     / -> home
 
@@ -17,4 +16,17 @@
 
     /posts/:id -> Post by id
 
-</code>
+    
+<h3>View routes</h3>
+
+
+    /posts -> All posts
+
+    /posts/:id -> Post by id
+
+    /usuarios/:id -> User by id (profile)
+
+    /comentarios/:id -> Comments by id
+
+    
+
