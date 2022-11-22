@@ -16,7 +16,7 @@ router
     .get(postsController.show);
 
 
-// Api route
+// Api route 
 router
     .route('/api/v1/posts')
     .get(postsController.getAll);
