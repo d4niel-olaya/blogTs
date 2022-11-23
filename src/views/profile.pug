@@ -10,7 +10,7 @@ body
         +post(titulo,autor,contenido,url)
         form(action="/post/delete/" + url method="GET")
             button(class="btn btn-danger") Borrar
-        +modal('Editar post', 'Este es el post')
+        +modal(url,'Editar', 'Editar publicación', 'Editar post', contenido, titulo)
         for comentario in element.comentarios
             div(class="container")
                 +comentario(comentario.usuarios.nombre, comentario.contenido)

@@ -65,6 +65,10 @@ class PostsController implements IController<Request, Response>
         const id:number = parseInt(req.params.id);
         const data:posts = req.body;
         const response:ResponseModel = await postsRepository.update(id,data);
+        if(response.code == 204){
+            res.redirect('/posts')
+            return;
+        }
         res.status(response.code).json(response.data)
     }
     /**
