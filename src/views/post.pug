@@ -8,6 +8,7 @@ html(lang="en")
         title Document
     body 
     include ../components/header.pug
+    include mixins/interacciones.pug
     if code==200
         div(class="card")
             div(class="card-body")
@@ -16,9 +17,11 @@ html(lang="en")
                 p(class="card subtitle mb-2") Escrito por #{data.usuarios.nombre}
                 div(class="card-footer text-muted")= data.fecha
                 p(class="card-text")= data.contenido
-                h1 Comentarios
-                for comentario in data.comentarios
-                    div(class="card-footer text-muted") Fecha #{comentario.fecha}
-                    h3= comentario.usuarios.nombre
-                    p(class="card-text")= comentario.contenido
-                    p= comentario.interaccion_comentarios.length
+                if data.comentarios.length > 0
+                    for comentario in data.comentarios
+                        h1 Comentarios  
+                        div(class="card-footer text-muted") Fecha #{comentario.fecha}
+                        h3= comentario.usuarios.nombre
+                        p(class="card-text")= comentario.contenido
+                        p= comentario.interaccion_comentarios.length
+                        +likes(comentario.interaccion_comentarios)
