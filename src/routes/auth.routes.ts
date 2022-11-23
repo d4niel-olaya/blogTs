@@ -8,10 +8,17 @@ router
     .route('/')
     .get(authenticationController.home)
 
+router
+    .route('/signup')
+    .get(authenticationController.register)
 
 router
     .route('/login')
     .post(authenticationController.login);
+
+router 
+    .route('/register')
+    .post(authenticationController.signup)
 
 router
     .route('/logout')

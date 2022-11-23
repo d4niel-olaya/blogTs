@@ -3,6 +3,7 @@ import usersRepository from "../repositories/users.repository";
 import { IController } from "../interfaces/crud.interface";
 import {Controller} from './controller';
 import { usuarios } from "@prisma/client";
+import { ResponseModel } from "../models/response/response.model";
 class UsuariosController implements IController<Request, Response>{
     /**
      * Create user
@@ -12,6 +13,9 @@ class UsuariosController implements IController<Request, Response>{
     async store(req: Request, res: Response): Promise<void> {
         const body:usuarios = req.body;
         const response:any = await usersRepository.create(body);
+        if(response.code != 201){
+            res.redirect('/');
+        }
     }
     /**
      * Query user by id

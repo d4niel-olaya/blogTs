@@ -15,6 +15,10 @@ class AuthenticacionController
     async home(req:Request, res:Response) {
         res.render('home');
     }
+
+    async register(req:Request, res:Response){
+        res.render('register');
+    }
     /**
      * 
      * @param {Request} req HTTP Request
@@ -55,6 +59,11 @@ class AuthenticacionController
     async logout(req:Request, res:Response) {
         res.clearCookie('session')
         res.redirect('/');
+    }
+
+
+    async signup(req:Request, res:Response){
+        
     }
 }
 

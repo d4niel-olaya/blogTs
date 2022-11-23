@@ -1,0 +1,12 @@
+mixin register()
+    div(class="container")
+        div(class="mb-3 w-25 mx-auto text-center")
+            form(action="/register" enctype="application/x-www-form-urlencoded" method="post") 
+                label(for="" class="form-label") Nombre de usuario
+                input(type="text" class="form-control" name="nombre")
+                label(for="" class="form-label") Correo 
+                input(type="email" class="form-control" name="email")
+                label(for="" class="form-label") Password
+                input(type="password" class="form-control" name="password")
+                button(class="btn btn-primary") Register
+

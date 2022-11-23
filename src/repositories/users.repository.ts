@@ -22,13 +22,15 @@ class UsuariosRepository extends ResponseModel implements IUsuariosRepository<us
     {   
         try{
             const {nombre, email, password} = data;
-            const user:any = await prisma.$queryRaw`INSERT INTO usuarios(nombre,email,password) VALUES(${nombre},${email},aes_encrypt(${password},'xyz'))`;
-            return user;
+            const user:object | null = await prisma.usuarios.create({
+                data:data
+            })
+            const response:any = super.response(201,'created');
+            return response;
         }
         catch(e:any){
-            // const response:any = await super.badResponse(e);
-            // return response;
-            return e;
+            const response:ResponseModel= await super.getInstance(e)
+            return response
         }
     }   
 
