@@ -8,6 +8,10 @@ body
         - const titulo = element.titulo 
         - const contenido = element.contenido
         +post(titulo,autor,contenido,url)
+        form(action="/post/delete/" + url method="GET")
+            button(class="btn btn-danger") Borrar
+        +modal('Editar post', 'Este es el post')
         for comentario in element.comentarios
             div(class="container")
                 +comentario(comentario.usuarios.nombre, comentario.contenido)
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous")

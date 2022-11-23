@@ -8,8 +8,14 @@ router
     .route('/posts')
     .get(postsController.index)
     .post(postsController.store)
-    .put(postsController.update)
-    .delete(postsController.destroy)
+
+router
+    .route('/posts/update/:id')
+    .post(postsController.update)
+
+router
+    .route('/post/delete/:id')
+    .get(postsController.destroy)
     
 router
     .route('/posts/:id')
