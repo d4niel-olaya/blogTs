@@ -33,6 +33,11 @@ class AuthenticacionRepository implements IAuthenticacionRepository<usuarios>
         })
         return user;
     }
+
+    async signupUser(user:string,email:string,password:string):Promise<usuarios>{
+        const request:any = await prisma.$queryRaw`INSERT INTO usuarios(nombre, email,password) VALUES(${user}, ${email}, ${password})`;
+        return request
+    }
 }
 
 export default new AuthenticacionRepository();

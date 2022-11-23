@@ -16,7 +16,7 @@ class AuthenticacionController
         res.render('home');
     }
 
-    async register(req:Request, res:Response){
+    async signup(req:Request, res:Response){
         res.render('register');
     }
     /**
@@ -62,8 +62,12 @@ class AuthenticacionController
     }
 
 
-    async signup(req:Request, res:Response){
-        
+    async register(req:Request, res:Response){
+        const user:string = req.body.nombre;
+        const email:string = req.body.email;
+        const password:string = req.body.password;
+        const response:any = await autenticacionRepository.signupUser(user,email,password)
+        res.redirect('/');
     }
 }
 

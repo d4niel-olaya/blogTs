@@ -10,7 +10,7 @@ router
 
 router
     .route('/signup')
-    .get(authenticationController.register)
+    .get(authenticationController.signup)
 
 router
     .route('/login')
@@ -18,7 +18,7 @@ router
 
 router 
     .route('/register')
-    .post(authenticationController.signup)
+    .post(authenticationController.register)
 
 router
     .route('/logout')
