@@ -56,19 +56,21 @@ mixin navbar(id_user)
         </div>
     </nav>
 
-mixin modal(id, tituloModal, contenidoModal, titulobtn, contenidoPost, tituloPost)
-    button(type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal"+id)=titulobtn
+mixin modal(id,contenidoPost, tituloPost)
+    //- button(type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal"+id)=titulobtn
+    button(class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modal"+id)
+        img(src="../../../public/assets/pencil-solid.svg" style="width:20px")
 
     div(class="modal fade" id="modal"+id tabindex="-1" aria-labelledby="modal"+id aria-hidden="true")
                 div(class="modal-dialog")
                     div(class="modal-content")
                         div(class="modal-header")
-                            h1(class="modal-title fs-5" id="modalLabel"+id)=titulo
+                            h1(class="modal-title fs-5" id="modalLabel"+id) Editar
                             button(type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close")
                         div(class="modal-body")
                             div(class="container")
                                 div(class="mb-3 w-75 mx-auto")
-                                    h3=contenidoModal
+                                    h3 Editar Publicación
                                     form(action="/posts/update/"+ id enctype="application/x-www-form-urlencoded" method="post") 
                                         label(for="" class="form-label") Titulo
                                         input(type="text" class="form-control" name="titulo" value=tituloPost)
@@ -77,3 +79,20 @@ mixin modal(id, tituloModal, contenidoModal, titulobtn, contenidoPost, tituloPos
                                         button(class="btn btn-primary" data-bs-dismiss="modal") Editar
                         div(class="modal-footer")
                             button(type="button" class="btn btn-secondary" data-bs-dismiss="modal") Close 
+
+
+mixin postProfile(titulo,autor,contenido,url) 
+    div(class="card")
+        div(class="d-flex p-2")
+            div(class="card-body")
+                h2(class="card-title")=titulo 
+                p(class="card-subtitle mb-2 text-muted") Escrito por #{autor}
+                p(class="card-text")=contenido 
+                a(class="card-link" href="/posts/" + url, class="p-1 rounded") Ver detalles
+            div(class="d-flex p-2 justify-content-between")
+                div()
+                    +modal(url, contenido, titulo)
+                div()
+                    form(action="/post/delete/" + url method="GET")
+                        button(class="btn btn-outline-danger")
+                            img(src="../../../public/assets/trash-can-solid.svg" style="width:20px")

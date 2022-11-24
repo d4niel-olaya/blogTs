@@ -7,10 +7,7 @@ body
         - const url = element.id
         - const titulo = element.titulo 
         - const contenido = element.contenido
-        +post(titulo,autor,contenido,url)
-        form(action="/post/delete/" + url method="GET")
-            button(class="btn btn-danger") Borrar
-        +modal(url,'Editar', 'Editar publicación', 'Editar post', contenido, titulo)
+        +postProfile(titulo,autor,contenido,url)
         for comentario in element.comentarios
             div(class="container")
                 +comentario(comentario.usuarios.nombre, comentario.contenido)

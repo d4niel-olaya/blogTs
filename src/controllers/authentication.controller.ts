@@ -58,7 +58,8 @@ class AuthenticacionController
      */
     async logout(req:Request, res:Response) {
         res.clearCookie('session')
-        res.redirect('/');
+        res.set('WWW-Authenticate', 'Basic realm="user_pages"');
+        res.redirect(401,'/');
     }
 
 
