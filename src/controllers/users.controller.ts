@@ -24,8 +24,16 @@ class UsuariosController implements IController<Request, Response>{
      */
     async show(req: Request, res: Response): Promise<void> {
 
-        const id:number = parseInt(req.params.id);
+        const id:number = parseInt(req.params.id)
+        const word:any = req.query.word;
+        console.log(typeof word)
+        if(typeof(word) === "string"){
+            const search:any = await usersRepository.getByWord(id,word);
+            res.render('profile', {data:search[0], id:req.cookies.user})
+            return
+        }
         const result:any = await usersRepository.get(id);
+        console.log(result)
         res.render('profile', {data:result, id:req.cookies.user})
         // res.json(result)
     }
@@ -39,6 +47,13 @@ class UsuariosController implements IController<Request, Response>{
         const id:number = parseInt(req.params.id);
         const response:any = await usersRepository.update(id,user);
         res.json(response);
+    }
+
+
+    async postByWord(req:Request, res:Response){
+        console.log(req.params)
+        console.log(req.query)
+        res.redirect('/posts')
     }
 }
 

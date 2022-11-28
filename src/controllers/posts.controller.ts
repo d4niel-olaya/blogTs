@@ -80,7 +80,7 @@ class PostsController implements IController<Request, Response>
     async destroy(req: Request, res: Response): Promise<void> {
         const id:number = parseInt(req.params.id);
         const response:ResponseModel = await postsRepository.deleted(id);
-        res.status(response.code).json(response.data);
+        res.redirect('/posts')
     }
 
     async getAll(req:Request, res:Response):Promise<void>{

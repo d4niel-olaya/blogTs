@@ -38,8 +38,8 @@ class UsuariosRepository extends ResponseModel implements IUsuariosRepository<us
         try{
             const user:any = await prisma.usuarios.findUnique({
                 where:
-                {
-                    id:id
+                {   
+                    id:id,
                 },
                 include:{
                     posts:{
@@ -80,6 +80,50 @@ class UsuariosRepository extends ResponseModel implements IUsuariosRepository<us
             data:data
         });
         return user;
+    }
+    async getByWord(id:number, word:string):Promise<ResponseModel>{
+        try{
+
+            const user:any = await prisma.usuarios.findMany({
+                where:{
+                    id:id,
+                    posts:{
+                       some:{
+                        contenido:{
+                            contains:word
+                        }
+                       }
+                    }
+                },
+                include:{
+                    posts:{
+                        include:{
+                            interaccion_posts:true,
+                            categorias:{
+                                select:{
+                                    nombre:true
+                                }
+                            },
+                            comentarios:{
+                                include:{
+                                    usuarios:{
+                                        select:{
+                                            id:true,
+                                            nombre:true,
+                                            email:true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                }
+            })
+            return user;
+        }
+        catch(e:any){
+            return e;
+        }
     }
 }
 

@@ -15,4 +15,8 @@ router
     .route('/usuarios/update/:id')
     .put(usersController.update);
 
+// router
+//     .route('/usuarios/:id')
+//     .get(usersController.postByWord)
+
 export default router;

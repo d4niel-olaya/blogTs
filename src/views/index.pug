@@ -5,7 +5,7 @@ include mixins/interacciones.pug
 if code >= 200 && code <= 204
     +navbar(id)
     h1 Crea tu comentario
-    div(class="mb-3")
+    div(class="mb-3 w-25 mx-auto")
         form(action="/posts" method="POST") 
             label(class="form-label") Categoria
             select(class="form-select" name="id_category")
@@ -23,10 +23,10 @@ if code >= 200 && code <= 204
         - const autor = element.usuarios.nombre 
         - const contenido = element.contenido
         +post(titulo, autor, contenido, url)
-        if element.comentarios.length > 0
-            h3(class="text-center") Comentarios
-            for comentario in element.comentarios 
-                div(class="container")
-                    +comentario(comentario.usuarios.nombre, comentario.contenido)
-            +likes(element.interaccion_posts)
+        //- if element.comentarios.length > 0
+        //-     h3(class="text-center") Comentarios
+        //-     for comentario in element.comentarios 
+        //-         div(class="container")
+        //-             +comentario(comentario.usuarios.nombre, comentario.contenido)
+        //-     +likes(element.interaccion_posts)
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
