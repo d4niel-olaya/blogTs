@@ -25,13 +25,14 @@ class UsuariosController implements IController<Request, Response>{
     async show(req: Request, res: Response): Promise<void> {
 
         const id:number = parseInt(req.params.id)
-        const word:any = req.query.word;
-        console.log(typeof word)
-        if(typeof(word) === "string"){
-            const search:any = await usersRepository.getByWord(id,word);
-            res.render('profile', {data:search[0], id:req.cookies.user})
-            return
-        }
+        // const word:any = req.query.word;
+        // console.log(typeof word)
+        // if(typeof(word) === "string"){
+        //     const search:any = await usersRepository.getByWord(id,word);
+        //     console.log(search)
+        //     res.render('profile', {data:search[0], id:req.cookies.user})
+        //     return
+        // }
         const result:any = await usersRepository.get(id);
         console.log(result)
         res.render('profile', {data:result, id:req.cookies.user})
@@ -49,11 +50,16 @@ class UsuariosController implements IController<Request, Response>{
         res.json(response);
     }
 
-
+    
     async postByWord(req:Request, res:Response){
-        console.log(req.params)
-        console.log(req.query)
-        res.redirect('/posts')
+        const id:number = parseInt(req.params.id)
+        const search:any = req.query.word;
+        const result :any = await usersRepository.getByWord(id,search)
+        console.log(result)
+        res.render('posts_by_word', {data:result[0], id:id})
+        // console.log(req.params)
+        // console.log(req.query)
+        // res.redirect('/posts')
     }
 }
 

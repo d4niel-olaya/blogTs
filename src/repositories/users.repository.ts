@@ -88,11 +88,11 @@ class UsuariosRepository extends ResponseModel implements IUsuariosRepository<us
                 where:{
                     id:id,
                     posts:{
-                       some:{
-                        contenido:{
-                            contains:word
+                        some:{
+                            contenido:{
+                                contains:word
+                            }
                         }
-                       }
                     }
                 },
                 include:{

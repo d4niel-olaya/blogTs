@@ -15,8 +15,8 @@ router
     .route('/usuarios/update/:id')
     .put(usersController.update);
 
-// router
-//     .route('/usuarios/:id')
-//     .get(usersController.postByWord)
+router
+    .route('/search/:id')
+    .get(usersController.postByWord)
 
 export default router;

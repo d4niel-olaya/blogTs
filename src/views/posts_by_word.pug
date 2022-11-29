@@ -1,0 +1,10 @@
+include ../components/header.pug
+include mixins/cardpost.pug 
+body 
+    +navbar(id)
+    - const autor = data.nombre
+    for post in data.posts
+        - const url = post.id
+        - const titulo = post.titulo
+        - const contenido = post.contenido
+        +postProfile(titulo,autor,contenido, url)
