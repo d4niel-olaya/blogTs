@@ -46,7 +46,7 @@ class UsuariosController implements IController<Request, Response>{
     async update(req: Request, res: Response): Promise<void> {
         const user:usuarios = req.body;
         const id:number = parseInt(req.params.id);
-        const response:any = await usersRepository.update(id,user);
+        const response:ResponseModel = await usersRepository.update(id,user);
         res.json(response);
     }
 
@@ -54,7 +54,7 @@ class UsuariosController implements IController<Request, Response>{
     async postByWord(req:Request, res:Response){
         const id:number = parseInt(req.params.id)
         const search:any = req.query.word;
-        const result :any = await usersRepository.getByWord(id,search)
+        const result:any = await usersRepository.getByWord(id,search)
         console.log(result)
         res.render('posts_by_word', {data:result[0], id:id})
         // console.log(req.params)

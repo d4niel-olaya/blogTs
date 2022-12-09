@@ -2,6 +2,7 @@ export interface IResponse<TORM> {
     orm:any;
 }
 
-export interface Model<TModel>{
-    
+export interface update<TModel>{
+    code:number,
+    data:string | Error
 }

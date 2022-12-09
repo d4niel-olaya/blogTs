@@ -5,11 +5,11 @@ export interface IValidate
 
     data:Array<any> | string;
 
-    updatedRes():Promise<any>;
+    updatedRes():Promise<object>;
 
-    deletedRes():Promise<any>;
+    deletedRes():Promise<object>;
 
-    getInstance(error:Error):Promise<any>;
+    getInstance(error:Error):Promise<object>;
 
     knowRequestError(error:Error):Promise<Object>;
 
