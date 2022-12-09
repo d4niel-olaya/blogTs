@@ -4,6 +4,7 @@ import { IController } from "../interfaces/crud.interface";
 import {Controller} from './controller';
 import { usuarios } from "@prisma/client";
 import { ResponseModel } from "../models/response/response.model";
+import { IResponse } from "../interfaces/response.interface";
 class UsuariosController implements IController<Request, Response>{
     /**
      * Create user
@@ -46,7 +47,7 @@ class UsuariosController implements IController<Request, Response>{
     async update(req: Request, res: Response): Promise<void> {
         const user:usuarios = req.body;
         const id:number = parseInt(req.params.id);
-        const response:ResponseModel = await usersRepository.update(id,user);
+        const response:IResponse = await usersRepository.update(id,user);
         res.json(response);
     }
 
