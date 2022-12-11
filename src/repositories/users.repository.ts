@@ -87,7 +87,7 @@ class UsuariosRepository extends ResponseModel implements IUsuariosRepository<us
         }
         catch(e:any){
             const response: IResponse = await super.getInstance(e);
-            return response;
+            return response; 
         }
     }
     async getByWord(id:number, word:string):Promise<IResponse>{
