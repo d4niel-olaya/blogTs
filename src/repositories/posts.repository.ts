@@ -2,12 +2,13 @@ import { IPostsRepository } from "../interfaces/posts.interface";
 import prisma from "../database/database";
 import { posts, Prisma } from "@prisma/client";
 import { ResponseModel } from "../models/response/response.model";
-class PostsRepository extends ResponseModel implements IPostsRepository<posts ,ResponseModel>
+import { IResponse } from "../interfaces/response.interface";
+class PostsRepository extends ResponseModel implements IPostsRepository<posts ,IResponse>
 {
     constructor() {
         super();
     }
-    async getAll(): Promise<ResponseModel> {
+    async getAll(): Promise<IResponse> {
         try{
 
             const posts:object | null = await prisma.posts.findMany({
@@ -48,16 +49,16 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,R
                     categorias:true
                 }
             });
-            const response:any = await super.response(200, posts);
+            const response:IResponse = await super.response(200, posts);
             return response;
         }
         catch(e:any) {
-            const error:any = await super.getInstance(e);
+            const error:IResponse = await super.getInstance(e);
             return error;
         }
     }
 
-    async get(id: number): Promise<ResponseModel> {
+    async get(id: number): Promise<IResponse> {
         try{
             const post:object | null = await prisma.posts.findUnique({
                 where:
@@ -100,22 +101,22 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,R
                 }
             });
             if(post === null) throw new Error('Not found');
-            const response:any = await super.response(200,post);
+            const response:IResponse = await super.response(200,post);
             return response;
         }
         catch(e:any) {
-            const res:any = await super.getInstance(e);
+            const res:IResponse = await super.getInstance(e);
             return res;
         }
     }
 
-    async create(data: posts): Promise<ResponseModel> {
+    async create(data: posts): Promise<IResponse> {
         try{
            
             const post:object | null = await prisma.posts.create({
                 data:data
             })
-            const response:any = await super.response(201,'Created');
+            const response:IResponse = await super.response(201,'Created');
             return response;
         }
         catch(e:any){
@@ -123,7 +124,7 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,R
         }
     }
 
-    async update(id: number, data: posts): Promise<ResponseModel> {
+    async update(id: number, data: posts): Promise<IResponse> {
         try{
             const post:object | null = await prisma.posts.update({
                 where:{
@@ -138,14 +139,14 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,R
         }
     }
 
-    async deleted(id: number): Promise<ResponseModel> {
+    async deleted(id: number): Promise<IResponse> {
         try{
             const post:object | null = await prisma.posts.delete({
                 where:{
                     id:id
                 }
             });
-            const response:any = await super.deletedRes();
+            const response:IResponse = await super.deletedRes();
             return response;
         }
         catch(e:any) {

@@ -3,38 +3,39 @@ import { IUsuariosRepository } from "../interfaces/usuarios.interface";
 import prisma from "../database/database";
 import { usuarios } from "@prisma/client";
 import { ResponseModel } from '../models/response/response.model'; 
+import { IResponse } from "../interfaces/response.interface";
 
 /**
  * @implements {IUsuariosRepository<usuarios, ResponseError>}
  * 
  * @extends {ResponseError}
  */
-class UsuariosRepository extends ResponseModel implements IUsuariosRepository<usuarios,ResponseModel>
+class UsuariosRepository extends ResponseModel implements IUsuariosRepository<usuarios,IResponse>
 {
     constructor() {
         super();
     }
     /**
     *@param {usuarios} data - Body request
-    *@return {Promise<Validate>}  ValidateClass response
+    *@return {Promise<IResponse>}  ValidateClass response
     */
-    async create(data:usuarios):Promise<usuarios | ResponseModel>
+    async create(data:usuarios):Promise<usuarios | IResponse>
     {   
         try{
             const {nombre, email, password} = data;
             const user:object | null = await prisma.usuarios.create({
                 data:data
             })
-            const response:any = super.response(201,'created');
-            return response;
+            const responseUser:IResponse = await super.response(201,'created');
+            return responseUser;
         }
         catch(e:any){
-            const response:ResponseModel= await super.getInstance(e)
+            const response:IResponse= await super.getInstance(e)
             return response
         }
     }   
 
-    async get(id: number): Promise<usuarios | ResponseModel> {
+    async get(id: number): Promise<usuarios | IResponse> {
         try{
             const user:any = await prisma.usuarios.findUnique({
                 where:
@@ -72,16 +73,24 @@ class UsuariosRepository extends ResponseModel implements IUsuariosRepository<us
             return e;
         }
     }
-    async update(id: number, data: usuarios): Promise<ResponseModel> {
-        const user:any = await prisma.usuarios.update({
-            where:{
-                id:id
-            },
-            data:data
-        });
-        return user;
+    async update(id: number, data: usuarios): Promise<IResponse> {
+        try{
+
+            const user:any = await prisma.usuarios.update({
+                where:{
+                    id:id
+                },
+                data:data
+            });
+            const response:IResponse = await super.response(204,'Updated')
+            return response;
+        }
+        catch(e:any){
+            const response: IResponse = await super.getInstance(e);
+            return response; 
+        }
     }
-    async getByWord(id:number, word:string):Promise<ResponseModel>{
+    async getByWord(id:number, word:string):Promise<IResponse>{
         try{
 
             const user:any = await prisma.usuarios.findMany({

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { IComentariosController } from "../interfaces/comentarios.interaface";
+import { IResponse } from "../interfaces/response.interface";
 import comentariosRepository from "../repositories/comentarios.repository";
 
 
@@ -7,14 +8,10 @@ import comentariosRepository from "../repositories/comentarios.repository";
 class ComentariosController implements IComentariosController
 {
     async show(req: Request, res: Response): Promise<void> {
-        const id = parseInt(req.params.id)
-        try{
-            const comentario = await comentariosRepository.get(id);
-            res.send(comentario).status(200);
-        }
-        catch(e){
-            res.sendStatus(404);
-        }
+        const id:number = parseInt(req.params.id)
+        const comentario:IResponse = await comentariosRepository.get(id);
+        console.log(comentario)
+        res.json(comentario)
     }
 
     async index(req: Request, res: Response): Promise<void> {
