@@ -14,12 +14,17 @@ class PostsController implements IController<Request, Response>
      * @render index view
      */
     async index(req: Request, res: Response): Promise<void> {
-        const posts:IResponse= await postsRepository.getAll();
+        const posts:IResponse = await postsRepository.getAll();
         const ctgs:object | null = await cateogoryRepository.getAll(); 
-        // console.log(ctgs);
+        const objResponse: object = { 
+            data:posts.data,
+            code:posts.code,
+            categorias:ctgs,
+            id:req.cookies.user,
+            created:req.query.created || null
+        }
         console.log(req.headers.authorization);
-        // res.status(posts.code).json(posts.data);
-        res.render('index', {data:posts.data, code:posts.code, categorias:ctgs, id:req.cookies.user});
+        res.render('index', objResponse);
     }
     /**
      * Query post by id
@@ -47,10 +52,9 @@ class PostsController implements IController<Request, Response>
         const body:posts = req.body;
         const response:IResponse = await postsRepository.create(body);
         if(response.code == 201){
-            res.redirect('/posts');
+            res.redirect('/posts?created=true');
             return;
         }
-        res.status(response.code).json(response.data);
 
     }
     /**

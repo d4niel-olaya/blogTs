@@ -4,7 +4,7 @@ import prisma from "../database/database";
 import { usuarios } from "@prisma/client";
 import { ResponseModel } from '../models/response/response.model'; 
 import { IResponse } from "../interfaces/response.interface";
-
+import { IUsuariosResponse } from "../interfaces/usuarios.interface";
 /**
  * @implements {IUsuariosRepository<usuarios, ResponseError>}
  * 
@@ -78,7 +78,7 @@ class UsuariosRepository extends ResponseModel implements IUsuariosRepository<us
     async update(id: number, data: usuarios): Promise<IResponse> {
         try{
 
-            const user:any = await prisma.usuarios.update({
+            const user:object = await prisma.usuarios.update({
                 where:{
                     id:id
                 },

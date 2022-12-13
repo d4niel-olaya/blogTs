@@ -1,9 +1,12 @@
 include ../components/header.pug
 body 
 include mixins/cardpost.pug
+include mixins/helpers.pug
 include mixins/interacciones.pug
 if code >= 200 && code <= 204
     +navbar(id)
+    if created === 'true'
+        h3(class="text-center") Comentario creado con exito
     h1 Crea tu comentario
     div(class="mb-3 w-25 mx-auto")
         form(action="/posts" method="POST") 
