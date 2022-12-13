@@ -24,20 +24,10 @@ class UsuariosController implements IController<Request, Response>{
      * @param {Response}res HTTP Response
      */
     async show(req: Request, res: Response): Promise<void> {
-
         const id:number = parseInt(req.params.id)
-        // const word:any = req.query.word;
-        // console.log(typeof word)
-        // if(typeof(word) === "string"){
-        //     const search:any = await usersRepository.getByWord(id,word);
-        //     console.log(search)
-        //     res.render('profile', {data:search[0], id:req.cookies.user})
-        //     return
-        // }
-        const result:any = await usersRepository.get(id);
+        const result:IResponse = await usersRepository.get(id);
         console.log(result)
-        res.render('profile', {data:result, id:req.cookies.user})
-        // res.json(result)
+        res.render('profile', {code:result.code ,data:result.data, id:req.cookies.user})
     }
     /**
      * Update an user
