@@ -1,27 +1,22 @@
-doctype html
-html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(http-equiv="X-UA-Compatible", content="IE=edge")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous")
-        title Document
-    body 
-    include ../components/header.pug
-    include mixins/interacciones.pug
-    if code==200
-        div(class="card")
-            div(class="card-body")
-                p(class="card-subtitle mb-2 text-muted") Categoria :  #{data.categorias.nombre}
-                h2= data.titulo 
-                p(class="card subtitle mb-2") Escrito por #{data.usuarios.nombre}
-                div(class="card-footer text-muted")= data.fecha
-                p(class="card-text")= data.contenido
-                if data.comentarios.length > 0
-                    for comentario in data.comentarios
-                        h1 Comentarios  
-                        div(class="card-footer text-muted") Fecha #{comentario.fecha}
-                        h3= comentario.usuarios.nombre
-                        p(class="card-text")= comentario.contenido
-                        p= comentario.interaccion_comentarios.length
-                        +likes(comentario.interaccion_comentarios)
+
+include ../components/header.pug
+include mixins/interacciones.pug
+include mixins/helpers.pug
+if code==200
+    div(class="card")
+        div(class="card-body")
+            p(class="card-subtitle mb-2 text-muted") Categoria :  #{data.categorias.nombre}
+            h2= data.titulo 
+            p(class="card subtitle mb-2") Escrito por #{data.usuarios.nombre}
+            div(class="card-footer text-muted")= data.fecha
+            p(class="card-text")= data.contenido
+            if data.comentarios.length > 0
+                for comentario in data.comentarios
+                    h1 Comentarios  
+                    div(class="card-footer text-muted") Fecha #{comentario.fecha}
+                    h3= comentario.usuarios.nombre
+                    p(class="card-text")= comentario.contenido
+                    p= comentario.interaccion_comentarios.length
+                    +likes(comentario.interaccion_comentarios)  
+else 
+    +notFound()
