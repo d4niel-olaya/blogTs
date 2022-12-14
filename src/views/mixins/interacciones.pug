@@ -1,19 +1,14 @@
 // componentes para los likes de un post y comentario
 
 
-mixin likes(array) 
+mixin likes(array, comments) 
     - let c_love = array.filter(element=> element.tipo === 'Me_encanta').length
-    - let c_awesome = array.filter(element => element.tipo === 'Me_asombra').length;
-    - let c_like = array.filter(element => element.tipo === 'Me_sorprende').length;
     div(class="likes")
         div 
-            img(src="../public/assets/heart-solid.svg" style="width:25px")
+            img(src="../../../public/assets/heart.svg" style="width:25px")
         div=c_love
         div 
-            img(src="../../../public/assets/thumbs-up-regular.svg" style="width:25px")
-        div=c_like
-        div 
-            img(src="../../../public/assets/face-surprise-regular.svg" style="width:25px")
-        div=c_awesome
+            img(src="../../../public/assets/chat.svg" style="width:25px")
+        div=comments
             
         
