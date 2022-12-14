@@ -26,8 +26,8 @@ if code >= 200 && code <= 204
         - const titulo = element.titulo 
         - const autor = element.usuarios.nombre 
         - const contenido = element.contenido
-        +post(titulo, autor, contenido, url)
-        +likes(element.interaccion_posts)
+        +post(titulo, autor, contenido, url, element.interaccion_posts)
+        //- +likes(element.interaccion_posts)
         //- if element.comentarios.length > 0
         //-     h3(class="text-center") Comentarios
         //-     for comentario in element.comentarios 

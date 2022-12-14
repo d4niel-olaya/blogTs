@@ -1,11 +1,14 @@
-mixin post(titulo, autor, contenido, url)
+
+include interacciones.pug
+
+mixin post(titulo, autor, contenido, url, array)
     div(class="card")
         div(class="card-body")
             h2(class="card-title")=titulo 
             p(class="card-subtitle mb-2 text-muted") Escrito por #{autor}
             p(class="card-text")=contenido 
             a(class="card-link" href="/posts/" + url, class="p-1 rounded") Ver detalles
-
+            +likes(array)
 
 mixin comentario(autor, contenido)
     div(class="card")

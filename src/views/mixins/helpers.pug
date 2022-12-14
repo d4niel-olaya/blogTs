@@ -49,3 +49,17 @@ mixin navbar(id_user)
             </div>
         </div>
     </nav>
+
+mixin navbarTop()
+    nav(class="navbar navbar-expand-lg bg-light")
+        div(class="container w-25")
+            div(class="collapse navbar-collapse" id="navbarSupportedContent")
+                form(class="d-flex" role="search")
+                    input(class="form-control me-2" type="search" placeholder="search" aria-label="Search")
+                    button(class="btn btn-outline-sucess" type="submit") Busca
+
+
+mixin verticalNavbar()
+    ul(class="nav flex-column")
+        li(class="nav-item") Este es el primer item 
+        li(class="nav-item") Este es el segundo item
