@@ -6,7 +6,8 @@ include mixins/interacciones.pug
 if code >= 200 && code <= 204
     +navbar(id)
     if created === 'true'
-        h3(class="text-center") Comentario creado con exito
+        div(class="alert alert-success alert-dismissible fade show" role="alert") Post creado con exito
+            button(type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close")
     h1 Crea tu comentario
     div(class="mb-3 w-25 mx-auto")
         form(action="/posts" method="POST") 
@@ -26,6 +27,7 @@ if code >= 200 && code <= 204
         - const autor = element.usuarios.nombre 
         - const contenido = element.contenido
         +post(titulo, autor, contenido, url)
+        +likes(element.interaccion_posts)
         //- if element.comentarios.length > 0
         //-     h3(class="text-center") Comentarios
         //-     for comentario in element.comentarios 
