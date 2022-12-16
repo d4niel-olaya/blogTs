@@ -3,12 +3,24 @@
 
 mixin likes(array, comments) 
     - let c_love = array.filter(element=> element.tipo === 'Me_encanta').length
-    div(class="likes")
-        div 
-            img(src="../../../public/assets/heart.svg" style="width:25px")
-        div=c_love
-        div 
-            img(src="../../../public/assets/chat.svg" style="width:25px")
-        div=comments
+    div(class="d-flex flex-row mb-3")
+        div(class="p-2")
+            img(src="../../../public/assets/heart.svg" style="width:15px")
+        div(class="p-2")=c_love  
+        div(class="p-2")
+            img(src="../../../public/assets/chat.svg" style="width:15px")
+        div(class="p-2")=comments
             
         
+mixin doLike()
+    div(class="d-flex flex-row mb-3")
+        div(class="p-2")
+            form(action="#" method="post")
+                label(class="form-label")
+                button(class="btn btn-outline-primary")
+                    img(src="../../../public/assets/share.svg" class="mx-auto")
+        div(class="p-2")
+            button(class="btn btn-outline-success") Compatir
+        div(class="p-2")
+            button(class="btn btn-outline-success") Comentar
+            
