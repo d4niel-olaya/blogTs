@@ -1,11 +1,9 @@
 <h1>Blog Express and Typescript</h1>
 <h3>Commands</h3>
 <p>Run local server</p>
-<code>
-    
-    npm run dev
 
-</code>
+
+    npm run dev
 
 <h3>Routes</h3>
 

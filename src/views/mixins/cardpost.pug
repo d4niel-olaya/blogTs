@@ -8,8 +8,8 @@ mixin post(titulo, autor, contenido, url, array, comments)
             p(class="card-subtitle mb-2 text-muted") Escrito por #{autor}
             p(class="card-text")=contenido 
             a(class="card-link" href="/posts/" + url, class="p-1 rounded") Ver detalles
-            +likes(array, comments)
-            +doLike()
+            //- +likes(array, comments)
+            +doLike(array,comments)
 
 mixin comentario(autor, contenido)
     div(class="card")
