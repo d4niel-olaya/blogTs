@@ -9,6 +9,25 @@ class InteraccionController implements ILikeController{
         const result:IResponse = await interaccionRepository.getAll();
         res.json(result);
     }   
+
+
+
+    async store(req: Request, res: Response): Promise<void> {
+        console.log(req.body);
+        const user:number = parseInt(req.cookies["user"]);
+        const post:number = parseInt(req.body.id_post)
+        req.body.id_user = user;
+        req.body.id_post = post;
+        const responseLike:IResponse = await interaccionRepository.create(req.body);
+        if(responseLike.code === 201){
+            res.redirect('/posts')
+            return
+        }
+        res.json(responseLike);
+    }
 }
+
+
+export default new InteraccionController();
 
 

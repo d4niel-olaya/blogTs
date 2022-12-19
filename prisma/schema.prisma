@@ -47,6 +47,7 @@ model usuarios {
   id                      Int                       @id @default(autoincrement())
   nombre                  String                    @db.VarChar(100)
   email                   String                    @unique(map: "email") @db.VarChar(100)
+  foto                    String?                   @db.VarChar(100)
   password                String                    @db.VarChar(100)
   comentarios             comentarios[]
   interaccion_comentarios interaccion_comentarios[]
@@ -81,13 +82,9 @@ model interaccion_posts {
 }
 
 enum interaccion_comentarios_tipo {
-  Me_encanta   @map("Me encanta")
-  Me_sorprende @map("Me sorprende")
-  Me_asombra   @map("Me asombra")
+  Me_encanta @map("Me encanta")
 }
 
 enum interaccion_posts_tipo {
-  Me_encanta   @map("Me encanta")
-  Me_sorprende @map("Me sorprende")
-  Me_asombra   @map("Me asombra")
+  Me_encanta @map("Me encanta")
 }

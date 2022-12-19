@@ -57,7 +57,8 @@ class UsuariosRepository extends ResponseModel implements IUsuariosRepository<us
                                         select:{
                                             id:true,
                                             nombre:true,
-                                            email:true
+                                            email:true,
+                                            foto:true
                                         }
                                     }
                                 }
@@ -121,7 +122,8 @@ class UsuariosRepository extends ResponseModel implements IUsuariosRepository<us
                                         select:{
                                             id:true,
                                             nombre:true,
-                                            email:true
+                                            email:true,
+                                            foto:true
                                         }
                                     }
                                 }

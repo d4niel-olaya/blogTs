@@ -19,8 +19,16 @@ class InteraccionRepository extends ResponseModel implements ILikeRepository<int
     }
 
     async create(data: interaccion_posts): Promise<IResponse> {
-        console.log(data);
-        return super.response(201,'created');
+        try{
+            const like : object = await prisma.interaccion_posts.create({
+                data:data
+            });
+            const response:IResponse = await super.response(201,'created');
+            return response;
+        }catch(e:any){
+            const error:IResponse = await super.getInstance(e);
+            return error;
+        }
     }
 }
 

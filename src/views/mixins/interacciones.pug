@@ -12,7 +12,7 @@ mixin likes(array, comments)
         div(class="p-2")=comments
             
         
-mixin doLike(array, comments)
+mixin doLike(array, comments, idPost)
     - let c_love = array.filter(element=> element.tipo === 'Me_encanta').length
     div(class="d-flex flex-row mb-3")
         div(class="p-2")
@@ -25,7 +25,8 @@ mixin doLike(array, comments)
                 button(class="btn btn-light")
                     img(src="../../../public/assets/share.svg")
         div(class="p-2")
-            form(action="#" method="post")
+            form(action="/like" method="POST")
+                input(type="text" name="id_post" value=idPost, style="display:none")
                 button(class="btn btn-light")
                     img(src="../../../public/assets/heart.svg")
         div(class="p-3")=c_love

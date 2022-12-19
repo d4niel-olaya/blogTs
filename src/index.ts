@@ -7,7 +7,7 @@ import usuariosRouter from '../src/routes/usuarios.routes';
 import authRouter from '../src/routes/auth.routes';
 import path, { dirname } from 'path';
 import verifySession from './helpers/session.middleware';
-
+import interaccionRouter from '../src/routes/interaccion_posts.routes';
 const app = express()
 
 app.use(cookieParser());
@@ -26,6 +26,7 @@ app.use(verifySession);
 app.use(postsRouter);
 app.use(comentariosRouter);
 app.use(usuariosRouter);
+app.use(interaccionRouter);
 app.listen(3000)
 
 console.log('server colocado');
