@@ -33,6 +33,6 @@ mixin doLike(array, comments, idPost, idUser)
             else
                 - let idlike = liked[0].id
                 form(action="/dontlike/" + idlike method="GET")
-                    button(class="btn btn-outline-danger")
-                        img(src="../../../public/assets/heart.svg")
+                    button(class="btn btn-light")
+                        img(src="../../../public/assets/heart-fill.svg")
         div(class="p-3")=array.length
