@@ -7,4 +7,9 @@ router
     .route('/like')
     .post(interaccionController.store);
 
+router
+    .route('/dontlike/:id')
+    .post(interaccionController.destroy);
+
+
 export default router

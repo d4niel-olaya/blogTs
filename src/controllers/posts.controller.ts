@@ -23,7 +23,7 @@ class PostsController implements IController<Request, Response>
             id:req.cookies.user,
             created:req.query.created || null
         }
-        console.log(req.headers.authorization);
+        // res.json(objResponse);
         res.render('index', objResponse);
     }
     /**
@@ -34,7 +34,6 @@ class PostsController implements IController<Request, Response>
      */
     async show(req:Request, res:Response):Promise<void>{
         const post:IResponse = await postsRepository.get(parseInt(req.params.id));
-        // res.status(post.code).json(post.data)
         res.render('post', {data:post.data, code:post.code})
     }
     /**
@@ -48,7 +47,6 @@ class PostsController implements IController<Request, Response>
         const id_c = parseInt(req.body.id_category);
         req.body.id_user = user;
         req.body.id_category = id_c
-        console.log(req.body);
         const body:posts = req.body;
         const response:IResponse = await postsRepository.create(body);
         if(response.code == 201){

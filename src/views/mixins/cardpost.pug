@@ -1,7 +1,7 @@
 
 include interacciones.pug
 
-mixin post(titulo, autor, contenido, url, array, comments)
+mixin post(titulo, autor, contenido, url, array, comments, idUser)
     div(class="card")
         div(class="card-body")
             h2(class="card-title")=titulo 
@@ -9,7 +9,7 @@ mixin post(titulo, autor, contenido, url, array, comments)
             p(class="card-text")=contenido 
             a(class="card-link" href="/posts/" + url, class="p-1 rounded") Ver detalles
             //- +likes(array, comments)
-            +doLike(array,comments, url)
+            +doLike(array,comments, url, idUser)
 
 mixin comentario(autor, contenido)
     div(class="card")

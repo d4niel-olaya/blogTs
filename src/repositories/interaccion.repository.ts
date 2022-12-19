@@ -30,6 +30,21 @@ class InteraccionRepository extends ResponseModel implements ILikeRepository<int
             return error;
         }
     }
+
+    async deleted(id: number): Promise<IResponse> {
+        try{
+            const dontLike : object = await prisma.interaccion_posts.delete({
+                where:{
+                    id:id
+                }
+            })
+            return await super.response(202, 'deleted');
+
+        }   
+        catch(e:any){
+            return await super.getInstance(e);
+        }
+    }
 }
 
 export default new InteraccionRepository();
