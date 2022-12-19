@@ -9,7 +9,7 @@ router
 
 router
     .route('/dontlike/:id')
-    .post(interaccionController.destroy);
+    .get(interaccionController.destroy);
 
 
 export default router
