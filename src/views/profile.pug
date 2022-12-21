@@ -1,18 +1,28 @@
 include ../components/header.pug
 include mixins/helpers.pug
 include mixins/cardpost.pug
+include mixins/cardProfile.pug
 body
     if code == 200
         +navbar(id)
+        +cardProfile(data.nombre, data.email, data.foto)
         -const autor = data.nombre
-        for element in data.posts
-            - const url = element.id
-            - const titulo = element.titulo 
-            - const contenido = element.contenido
-            +postProfile(titulo,autor,contenido,url)
-            for comentario in element.comentarios
-                div(class="container")
-                    +comentario(comentario.usuarios.nombre, comentario.contenido)
+        if id == data.id
+            for element in data.posts
+                - const url = element.id
+                - const titulo = element.titulo 
+                - const contenido = element.contenido
+                
+                +postProfile(titulo,autor,contenido,url)
+                for comentario in element.comentarios
+                    div(class="container")
+                        +comentario(comentario.usuarios.nombre, comentario.contenido)
+        else
+            for element in data.posts
+                - const url = element.id
+                - const titulo = element.titulo
+                - const contenido = element.contenido
+                +post(titulo, autor, contenido,url,element.interaccion_posts, element.comentarios.length, id)
         script(src="https://cdn.jsdelivr.net/np<m/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous")
     else 
         +notFound()
