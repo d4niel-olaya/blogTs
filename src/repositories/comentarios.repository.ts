@@ -48,7 +48,9 @@ class ComentarioRepository extends ResponseModel implements IComentariosReposito
                             email:true
                         }
                     }
-                }
+                },
+
+                
             })
             if(comentario === null) throw new Error('Not found')
             const response: IResponse = await super.response(200, comentario);

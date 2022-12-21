@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response} from "express";
 import { IController } from "../interfaces/crud.interface";
 import postsRepository from "../repositories/posts.repository";
 import cateogoryRepository from "../repositories/cateogory.repository";
@@ -14,14 +14,18 @@ class PostsController implements IController<Request, Response>
      * @render index view
      */
     async index(req: Request, res: Response): Promise<void> {
-        const posts:IResponse = await postsRepository.getAll();
+        let num :any  = req.query.page
+        if(num === undefined) num = 1;
+        const idpag : number = parseInt(num) * 10
+        const posts:IResponse = await postsRepository.getAll(10, idpag-10);
         const ctgs:object | null = await cateogoryRepository.getAll(); 
         const objResponse: object = { 
             data:posts.data,
             code:posts.code,
             categorias:ctgs,
             id:req.cookies.user,
-            created:req.query.created || null
+            created:req.query.created || null,
+            page:num
         }
         // res.json(objResponse);
         res.render('index', objResponse);
@@ -87,7 +91,10 @@ class PostsController implements IController<Request, Response>
     }
 
     async getAll(req:Request, res:Response):Promise<void>{
-        const posts:IResponse = await postsRepository.getAll();
+        let num : any = req.query.page
+        if(num == undefined) num = 1
+        const idpag:number = parseInt(num) * 10
+        const posts:IResponse = await postsRepository.getAll(10, idpag-10);
         res.json(posts.data);
     }
 }

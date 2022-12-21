@@ -8,10 +8,12 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,I
     constructor() {
         super();
     }
-    async getAll(): Promise<IResponse> {
+    async getAll(idPag:number, idSkip:number): Promise<IResponse> {
         try{
 
             const posts:object | null = await prisma.posts.findMany({
+                take:idPag,
+                skip:idSkip,
                 include:
                 {
                     usuarios:true,

@@ -20,7 +20,7 @@ export interface IRepository<TReturn , TypeId, TResponse>
 {
     create?(data:TReturn):Promise<TReturn | TResponse>
 
-    getAll?():Promise<TReturn | TResponse>
+    getAll?(idPag?:TypeId, idSkip?:TypeId):Promise<TReturn | TResponse>
 
     get?(id:TypeId):Promise<TReturn | TResponse>
 

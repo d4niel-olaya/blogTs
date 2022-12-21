@@ -7,6 +7,9 @@ const router:Router = Router();
 router
     .route('/posts')
     .get(postsController.index)
+
+router
+    .route('/posts')
     .post(postsController.store)
 
 router
