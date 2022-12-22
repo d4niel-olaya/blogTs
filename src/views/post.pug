@@ -2,14 +2,18 @@
 include ../components/header.pug
 include mixins/interacciones.pug
 include mixins/helpers.pug
+include mixins/cardpost.pug
+
 if code==200
-    div(class="card")
-        div(class="card-body")
-            p(class="card-subtitle mb-2 text-muted") Categoria :  #{data.categorias.nombre}
-            h2= data.titulo 
-            p(class="card subtitle mb-2") Escrito por #{data.usuarios.nombre}
-            div(class="card-footer text-muted")= data.fecha
-            p(class="card-text")= data.contenido
+    +navbar(id)
+    - const autor = data.usuarios.nombre
+    - const titulo = data.titulo
+    - const fecha = data.fecha
+    - const contenido = data.contenido
+    - const categoria = data.categorias.nombre 
+    - const comentarios = data.comentarios
+    - const likes = data.interaccion_posts
+    +postByid(autor, titulo, categoria, contenido, fecha, comentarios, likes)
             if data.comentarios.length > 0
                 for comentario in data.comentarios
                     h1 Comentarios  

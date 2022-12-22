@@ -38,7 +38,7 @@ class PostsController implements IController<Request, Response>
      */
     async show(req:Request, res:Response):Promise<void>{
         const post:IResponse = await postsRepository.get(parseInt(req.params.id));
-        res.render('post', {data:post.data, code:post.code})
+        res.render('post', {data:post.data, code:post.code, id:req.cookies['user']})
     }
     /**
      * Create a post

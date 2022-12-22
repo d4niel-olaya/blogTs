@@ -29,4 +29,4 @@ app.use(usuariosRouter);
 app.use(interaccionRouter);
 app.listen(3000)
 
-console.log('server colocado');
+console.log("Server colocado : http://localhost:3000");

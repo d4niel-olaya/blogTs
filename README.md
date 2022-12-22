@@ -3,7 +3,9 @@
 <p>Run local server</p>
 
 
-    npm run dev
+    npm run dev -> Start local server
+
+    npm run build -> Dist
 
 <h3>Routes</h3>
 
@@ -18,7 +20,7 @@
 <h3>View routes</h3>
 
 
-    /posts -> All posts
+    /posts?page=number -> All posts
 
     /posts/:id -> Post by id
 
