@@ -36,3 +36,27 @@ mixin doLike(array, comments, idPost, idUser)
                     button(class="btn btn-light")
                         img(src="../../../public/assets/heart-fill.svg")
         div(class="p-3")=array.length
+
+
+mixin modalInteracciones(nombre, array, nombrebtn)
+    button(class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modal"+nombrebtn)=nombre
+    div(class="modal fade" id="modal"+nombrebtn tabindex="-1" aria-labelledby="modal"+nombrebtn aria-hidden="true")
+        div(class="modal-dialog")
+                div(class="modal-content")
+                    div(class="modal-header")
+                        h1(class="modal-title fs-5" id="modalLabel"+nombrebtn)=nombre 
+                        button(type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close")
+                    div(class="modal-body")
+                        div(class="container")
+                        for element in array
+                            - const imagen = element.usuarios.foto
+                            - const autor = element.usuarios.nombre
+                            - const id = element.usuarios.id
+                            div(class="d-flex flex-row mb-3")
+                                div(class="p-2")
+                                    img(src=imagen class="rounded-circle" style="width:50px")
+                                div(class="p-3")=autor
+                                    
+
+                                        
+                                   

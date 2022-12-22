@@ -22,7 +22,8 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,I
                             usuarios:{
                                 select:{
                                     id:true,
-                                    nombre:true
+                                    nombre:true,
+                                    foto:true
                                 }
                             },
                             interaccion_comentarios:{
@@ -30,7 +31,8 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,I
                                     usuarios:{
                                         select:{
                                             id:true,
-                                            nombre:true
+                                            nombre:true,
+                                            foto:true
                                         }
                                     }
                                 }
@@ -43,7 +45,8 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,I
                             usuarios:{
                                 select:{
                                     id:true,
-                                    nombre:true
+                                    nombre:true,
+                                    foto:true
                                 }
                             }
                         }
@@ -95,7 +98,8 @@ class PostsRepository extends ResponseModel implements IPostsRepository<posts ,I
                             usuarios:{
                                 select:{
                                     id:true,
-                                    nombre:true
+                                    nombre:true,
+                                    foto:true
                                 }
                             }
                         }

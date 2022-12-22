@@ -21,13 +21,10 @@ mixin postByid(autor, titulo, categoria, contenido, fecha, arrayComentarios, arr
             div(class="card-footer text-muted")=fecha
             p(class="card-text")= contenido 
             div(class="d-flex flex-row mb-3")
-                div(class="p-2")
-                    button(class="btn btn-outline-secondary") Me gusta
-                div(class="p-3")=arrayLikes.length
-                div(class="p-2")
-                    button(class="btn btn-outline-secondary") Comentarios 
-                div(class="p-3")=arrayComentarios.length
-          
+                div(class="p-1")
+                    +modalInteracciones('Me gusta',arrayLikes, 'megusta')
+                div(class="p-2")=arrayLikes.length
+            //- +modalInteracciones('comentarios')
 
 mixin comentario(autor, contenido)
     div(class="card")
