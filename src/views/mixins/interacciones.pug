@@ -16,9 +16,8 @@ mixin doLike(array, comments, idPost, idUser)
     - let liked = array.filter(element => element.id_user == idUser)
     div(class="d-flex flex-row mb-3")
         div(class="p-2")
-            form(action="#" method="post")
-                button(class="btn btn-light")
-                    img(src="../../../public/assets/chat.svg")
+            button(class="btn btn-light" data-bs-toggle="collapse" data-bs-target="#collapse"+idPost  aria-expanded="false" aria-controls="collapse"+idPost)
+                img(src="../../../public/assets/chat.svg")
         div(class="p-3")=comments
         div(class="p-2")
             form(action="#" method="post")
@@ -36,7 +35,8 @@ mixin doLike(array, comments, idPost, idUser)
                     button(class="btn btn-light")
                         img(src="../../../public/assets/heart-fill.svg")
         div(class="p-3")=array.length
-
+    div(class="collapse" id="collapse" + idPost)
+        div(class="container-fluid") Esto es un texto de ejemplo
 
 mixin modalInteracciones(nombre, array, nombrebtn)
     button(class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modal"+nombrebtn)=nombre
