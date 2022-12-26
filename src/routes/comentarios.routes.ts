@@ -13,5 +13,10 @@ router
 router
     .route('/comentarios')
     .get(comentariosController.index)
+
+
+router
+    .route('/comentarios')
+    .post(comentariosController.store)
     
 export default router;

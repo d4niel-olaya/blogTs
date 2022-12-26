@@ -61,6 +61,23 @@ class ComentarioRepository extends ResponseModel implements IComentariosReposito
             return error;
         }
     }
+
+
+    async create(data: comentarios): Promise<IResponse> {
+        try{
+            const comentario:object = await prisma.comentarios.create(
+                {
+                    data:data
+                }
+            )
+            const response: IResponse = await super.response(201, 'Created');
+            return response;
+        }
+        catch(e:any){
+            const error:IResponse = await super.getInstance(e);
+            return error;
+        }
+    }
 }
 
 export default new ComentarioRepository();

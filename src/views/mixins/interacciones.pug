@@ -36,7 +36,12 @@ mixin doLike(array, comments, idPost, idUser)
                         img(src="../../../public/assets/heart-fill.svg")
         div(class="p-3")=array.length
     div(class="collapse" id="collapse" + idPost)
-        div(class="container-fluid") Esto es un texto de ejemplo
+        div(class="mb-3") 
+            form(action="/comentarios" enctype="application/x-www-form-urlencoded" method="POST")
+                input(type="text" value=idPost name="id_post" style="display:none")
+                textarea(name="contenido", cols="50", rows="10" class="form-control" required) Escribe tu comentario
+                button(class="btn btn-success") Crear Comentario
+            
 
 mixin modalInteracciones(nombre, array, nombrebtn)
     button(class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modal"+nombrebtn)=nombre
